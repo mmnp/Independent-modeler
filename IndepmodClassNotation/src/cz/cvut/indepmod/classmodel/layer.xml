@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Actions">
+        <folder name="File">
+            <file name="cz-cvut-indepmod-classmodel-OpenClassNotationAction.instance">
+                <attr name="instanceCreate" methodvalue="org.openide.awt.Actions.alwaysEnabled"/>
+                <attr name="delegate" newvalue="cz.cvut.indepmod.classmodel.OpenClassNotationAction"/>
+                <attr name="displayName" bundlevalue="cz.cvut.indepmod.classmodel.Bundle#classmodel.action.openclassnotationaction"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Menu">
+        <folder name="File">
+            <file name="OpenClassNotationAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/File/cz-cvut-indepmod-classmodel-OpenClassNotationAction.instance"/>
+            </file>
+        </folder>
+    </folder>
+</filesystem>
