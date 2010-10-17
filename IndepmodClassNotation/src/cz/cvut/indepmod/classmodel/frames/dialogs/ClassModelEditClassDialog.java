@@ -1,6 +1,7 @@
 package cz.cvut.indepmod.classmodel.frames.dialogs;
 
 import cz.cvut.indepmod.classmodel.workspace.ClassModelGraph;
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.AttributeModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.ClassModel;
 import java.awt.event.ActionEvent;
 import org.jgraph.graph.DefaultGraphCell;
@@ -9,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.logging.Logger;
+import org.openide.windows.WindowManager;
 
 /**
  * Created by IntelliJ IDEA.
@@ -43,6 +45,18 @@ public class ClassModelEditClassDialog extends ClassModelEditClassDialogView {
     }
 
     private void initAction() {
+        this.addAttributeButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Frame window = WindowManager.getDefault().getMainWindow();
+                AttributeModel attr = new ClassModelAttributeCreatorDialog(window).getAttribute();
+
+                classModel.addAttribute(attr);
+                graph.getGraphLayoutCache().editCell(cell, new HashMap());
+            }
+        });
+
         this.saveButton.addActionListener(new ActionListener() {
 
             @Override

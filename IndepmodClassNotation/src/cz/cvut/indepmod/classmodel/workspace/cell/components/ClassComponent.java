@@ -1,10 +1,12 @@
 package cz.cvut.indepmod.classmodel.workspace.cell.components;
 
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.AttributeModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.ClassModel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -76,13 +78,20 @@ public class ClassComponent extends JComponent {
     private void paintAttributePart(Graphics g) {
         int width = getSize().width;
         int height = this.getAttributePartHeight();
+        Set<AttributeModel> attrs = this.model.getAttributeModels();
 
         g.setColor(Color.BLACK);
         g.drawRect(0, 0, width - 1, height - 1);
 
-        /*g.setFont(CLASS_NAME_FONT);
-        Rectangle2D rect = g.getFontMetrics().getStringBounds(className, g);
-        g.drawString(className, (int) ((width - rect.getWidth()) / 2), height - 5);*/
+        g.setFont(CLASS_NAME_FONT);
+        //Rectangle2D rect = g.getFontMetrics().getStringBounds(className, g);
+
+        int stage = 1;
+        for (AttributeModel attr : attrs ) {
+            String text = attr.getName() +" : "+ attr.getType().getTypeName();
+            g.drawString(text, 5, stage * 20 - 5);
+            stage++;
+        }
     }
 
     private void paintMethodPart(Graphics g) {

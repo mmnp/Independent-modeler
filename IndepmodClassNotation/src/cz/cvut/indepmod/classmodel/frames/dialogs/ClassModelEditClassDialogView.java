@@ -19,9 +19,13 @@ public class ClassModelEditClassDialogView extends ClassModelAbstractDialog {
     public static final String NAME_LABEL = "Name";
     public static final String SAVE_BUTTON = "Edit";
     public static final String CANCEL_BUTTON = "Cancel";
+    public static final String ADD_ATTRIBUTE_BUTTON = "Add Atribute";
+    public static final String REMOVE_ATTRIBUTE_BUTTON = "Del Atribute";
 
     protected JLabel classNameLabel = new JLabel(NAME_LABEL);
     protected JTextField classNameField = new JTextField();
+    protected JButton addAttributeButton = new JButton(ADD_ATTRIBUTE_BUTTON);
+    protected JButton removeAttributeButton = new JButton(REMOVE_ATTRIBUTE_BUTTON);
     protected JButton saveButton = new JButton(SAVE_BUTTON);
     protected JButton cancelButton = new JButton(CANCEL_BUTTON);
 
@@ -33,10 +37,15 @@ public class ClassModelEditClassDialogView extends ClassModelAbstractDialog {
     }
 
     private void initLayout() {
-        this.setLayout(new GridLayout(2, 2));
+        this.setLayout(new GridLayout(4, 2));
 
         this.add(this.classNameLabel);
         this.add(this.classNameField);
+
+        this.add(this.addAttributeButton);
+        this.add(this.removeAttributeButton);
+
         this.add(this.saveButton);
+        this.add(this.cancelButton);
     }
 }

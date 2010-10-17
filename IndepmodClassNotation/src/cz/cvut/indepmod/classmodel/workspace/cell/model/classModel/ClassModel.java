@@ -82,4 +82,8 @@ public class ClassModel extends TypeModel {
     public Set<AttributeModel> getAttributeModels() {
         return Collections.unmodifiableSet(attributeModels);
     }
+
+    public void addAttribute(AttributeModel attr) {
+        this.attributeModels.add(attr);
+    }
 }
