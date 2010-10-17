@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.logging.Logger;
-import org.jgraph.graph.CellView;
 
 /**
  * Created by IntelliJ IDEA.
