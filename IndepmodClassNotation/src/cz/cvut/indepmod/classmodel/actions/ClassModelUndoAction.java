@@ -1,8 +1,7 @@
 package cz.cvut.indepmod.classmodel.actions;
 
-import org.apache.log4j.Logger;
-
 import java.awt.event.ActionEvent;
+import java.util.logging.Logger;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,7 +15,7 @@ public class ClassModelUndoAction extends ClassModelAbstractAction {
 
     public static final String ACTION_NAME = "Undo";
 
-    private static final Logger LOG = Logger.getLogger(ClassModelUndoAction.class);
+    private static final Logger LOG = Logger.getLogger(ClassModelUndoAction.class.getName());
 
     public ClassModelUndoAction() {
         super(ACTION_NAME, null);

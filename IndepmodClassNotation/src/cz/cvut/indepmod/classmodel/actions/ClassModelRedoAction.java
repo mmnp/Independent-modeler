@@ -1,8 +1,7 @@
 package cz.cvut.indepmod.classmodel.actions;
 
-import org.apache.log4j.Logger;
-
 import java.awt.event.ActionEvent;
+import java.util.logging.Logger;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,7 +15,7 @@ public class ClassModelRedoAction extends ClassModelAbstractAction {
 
     public static final String ACTION_NAME = "Redo";
 
-    private static final Logger LOG = Logger.getLogger(ClassModelRedoAction.class);
+    private static final Logger LOG = Logger.getLogger(ClassModelRedoAction.class.getName());
 
     public ClassModelRedoAction() {
         super(ACTION_NAME, null);

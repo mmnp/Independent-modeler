@@ -29,4 +29,14 @@ public class TypeModel {
     public String getTypeName() {
         return typeName;
     }
+
+    /**
+     * Change the name of this data type
+     * @param typeName new name of this data type
+     */
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
+
+
 }

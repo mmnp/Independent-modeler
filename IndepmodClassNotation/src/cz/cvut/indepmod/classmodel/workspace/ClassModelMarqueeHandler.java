@@ -1,7 +1,6 @@
 package cz.cvut.indepmod.classmodel.workspace;
 
 import cz.cvut.indepmod.classmodel.api.ToolChooserModel;
-import org.apache.log4j.Logger;
 import org.jgraph.graph.BasicMarqueeHandler;
 import org.jgraph.graph.DefaultEdge;
 import org.jgraph.graph.GraphConstants;
@@ -11,10 +10,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
+import java.util.logging.Logger;
 
 public class ClassModelMarqueeHandler extends BasicMarqueeHandler {
 
-    private static final Logger LOG = Logger.getLogger(ClassModelMarqueeHandler.class);
+    private static final Logger LOG = Logger.getLogger(ClassModelMarqueeHandler.class.getName());
 
     private final ClassModelGraph graph;
     private final ToolChooserModel selectedToolModel;
@@ -55,7 +55,7 @@ public class ClassModelMarqueeHandler extends BasicMarqueeHandler {
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
         if (this.startingPort != null && this.graph.isPortsVisible()) {
-            LOG.debug("mouseDraged");
+            LOG.fine("mouseDraged");
             this.printTempLine(Color.black, this.graph.getBackground());
 
             this.actualPort = this.graph.getPortViewAt(mouseEvent.getPoint().getX(), mouseEvent.getPoint().getY());

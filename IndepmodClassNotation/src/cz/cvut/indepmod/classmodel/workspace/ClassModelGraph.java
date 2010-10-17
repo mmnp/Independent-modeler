@@ -5,7 +5,6 @@ import cz.cvut.indepmod.classmodel.actions.ClassModelEditAction;
 import cz.cvut.indepmod.classmodel.api.ToolChooserModel;
 import cz.cvut.indepmod.classmodel.api.ToolChooserModelListener;
 import cz.cvut.indepmod.classmodel.workspace.cell.ClassModelCellFactory;
-import org.apache.log4j.Logger;
 import org.jgraph.JGraph;
 import org.jgraph.event.GraphSelectionEvent;
 import org.jgraph.event.GraphSelectionListener;
@@ -13,10 +12,11 @@ import org.jgraph.graph.DefaultGraphCell;
 
 import java.awt.*;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class ClassModelGraph extends JGraph {
 
-    private static final Logger LOG = Logger.getLogger(ClassModelGraph.class);
+    private static final Logger LOG = Logger.getLogger(ClassModelGraph.class.getName());
 
     private Map<String, ClassModelAbstractAction> actions;
     private ToolChooserModel selectedTool;
@@ -64,7 +64,7 @@ public class ClassModelGraph extends JGraph {
     }
 
     public void insertCell(Point p) {
-        LOG.debug("adding new cell");
+        LOG.fine("adding new cell");
         ToolChooserModel.Tool tool = this.selectedTool.getSelectedTool();
         DefaultGraphCell cell = ClassModelCellFactory.createCell(p, tool);
 

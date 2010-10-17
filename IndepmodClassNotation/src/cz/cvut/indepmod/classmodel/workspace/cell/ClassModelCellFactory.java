@@ -2,13 +2,13 @@ package cz.cvut.indepmod.classmodel.workspace.cell;
 
 import cz.cvut.indepmod.classmodel.api.ToolChooserModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.ClassModel;
-import org.apache.log4j.Logger;
 import org.jgraph.graph.DefaultGraphCell;
 import org.jgraph.graph.DefaultPort;
 import org.jgraph.graph.GraphConstants;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.logging.Logger;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,7 +20,7 @@ import java.awt.geom.Point2D;
  */
 public class ClassModelCellFactory {
 
-    private static final Logger LOG = Logger.getLogger(ClassModelCellFactory.class);
+    private static final Logger LOG = Logger.getLogger(ClassModelCellFactory.class.getName());
 
     public static DefaultGraphCell createCell(Point2D point, ToolChooserModel.Tool selectedTool) {
         DefaultGraphCell cell = new DefaultGraphCell();
@@ -42,7 +42,7 @@ public class ClassModelCellFactory {
                 cell.setUserObject(new ClassModel("new class"));
                 break;
             default:
-                LOG.error("Unknown selected tool");
+                LOG.severe("Unknown selected tool");
         }
 
         cell.add(new DefaultPort());

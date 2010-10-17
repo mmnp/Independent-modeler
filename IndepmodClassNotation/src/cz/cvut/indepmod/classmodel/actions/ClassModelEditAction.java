@@ -1,9 +1,13 @@
 package cz.cvut.indepmod.classmodel.actions;
 
+import cz.cvut.indepmod.classmodel.frames.dialogs.ClassModelEditClassDialog;
 import cz.cvut.indepmod.classmodel.workspace.ClassModelGraph;
-import org.apache.log4j.Logger;
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.ClassModel;
 
 import java.awt.event.ActionEvent;
+import java.util.logging.Logger;
+import org.jgraph.graph.DefaultGraphCell;
+import org.openide.windows.WindowManager;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,9 +20,7 @@ import java.awt.event.ActionEvent;
 public class ClassModelEditAction extends ClassModelAbstractAction {
 
     public static final String ACTION_NAME = "Edit";
-
-    private static final Logger LOG = Logger.getLogger(ClassModelEditAction.class);
-
+    private static final Logger LOG = Logger.getLogger(ClassModelEditAction.class.getName());
     private ClassModelGraph graph;
 
     public ClassModelEditAction(ClassModelGraph graph) {
@@ -28,18 +30,21 @@ public class ClassModelEditAction extends ClassModelAbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent event) {
-//        try {
-//            DefaultGraphCell cell = (DefaultGraphCell) this.graph.getSelectionCell();
-//            ClassModel model = (ClassModel) cell.getUserObject();
-//
-//            ClassModelEditClassDialogView dialog = new ClassModelEditClassDialogView(ModelerSession.getFrame());
-//            dialog.setVisible(true);
-//
-//            //this.graph.getGraphLayoutCache().editCell(cell, map);
-//        } catch (NullPointerException ex) {
-//            LOG.error("Edit Action was performed even is no cell was selected!");
-//        } catch (ClassCastException ex) {
-//            LOG.error("Edit Action was performed on different vertex than class");
-//        }
+        try {
+            DefaultGraphCell cell = (DefaultGraphCell) this.graph.getSelectionCell();
+            ClassModel model = (ClassModel) cell.getUserObject();
+
+            ClassModelEditClassDialog dialog = new ClassModelEditClassDialog(
+                    WindowManager.getDefault().getMainWindow(),
+                    graph,
+                    cell,
+                    model);
+
+            //this.graph.getGraphLayoutCache().editCell(cell, map);
+        } catch (NullPointerException ex) {
+            LOG.severe("Edit Action was performed even is no cell was selected!");
+        } catch (ClassCastException ex) {
+            LOG.severe("Edit Action was performed on different vertex than class");
+        }
     }
 }

@@ -13,19 +13,21 @@ import java.awt.*;
  * This class represents a dialog view which will be used for editing of a class (class in a notation's diagram)
  */
 //TODO - static string data should be loaded by resource bundle
-public class ClassModelEditClassDialogView extends JDialog {
+public class ClassModelEditClassDialogView extends ClassModelAbstractDialog {
 
     public static final String TITLE = "Class Edit";
     public static final String NAME_LABEL = "Name";
     public static final String SAVE_BUTTON = "Edit";
+    public static final String CANCEL_BUTTON = "Cancel";
 
-    private JLabel classNameLabel = new JLabel(NAME_LABEL);
-    private JTextField classNameField = new JTextField();
-    private JButton saveButton = new JButton(SAVE_BUTTON);
+    protected JLabel classNameLabel = new JLabel(NAME_LABEL);
+    protected JTextField classNameField = new JTextField();
+    protected JButton saveButton = new JButton(SAVE_BUTTON);
+    protected JButton cancelButton = new JButton(CANCEL_BUTTON);
 
 
     public ClassModelEditClassDialogView(Frame owner) {
-        super(owner, TITLE, true);
+        super(owner, TITLE);
 
         this.initLayout();
     }

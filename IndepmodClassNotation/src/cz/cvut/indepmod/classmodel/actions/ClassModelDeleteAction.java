@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 /**
  * Created by IntelliJ IDEA.
@@ -26,7 +26,7 @@ public class ClassModelDeleteAction extends ClassModelAbstractAction {
 
     public static final String ACTION_NAME = "Delete";
 
-    private static final Logger LOG = Logger.getLogger(ClassModelDeleteAction.class);
+    private static final Logger LOG = Logger.getLogger(ClassModelDeleteAction.class.getName());
 
     private ClassModelGraph graph;
 
@@ -37,7 +37,7 @@ public class ClassModelDeleteAction extends ClassModelAbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        LOG.debug("deleting cells");
+        LOG.fine("deleting cells");
         Object[] cells = this.graph.getSelectionCells();
 
         Set<Object> cellSet = new HashSet<Object>(Arrays.asList(cells)); //Transform cells into a colection
