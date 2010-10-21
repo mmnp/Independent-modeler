@@ -8,7 +8,7 @@ package cz.cvut.indepmod.classmodel.workspace.cell.model.classModel;
  * <p/>
  * This class represents the data type (Class name, return type of method or data type of an attribute)
  */
-public class TypeModel {
+public class TypeModel extends AbstractModel {
 
     private String typeName;
 

@@ -6,7 +6,7 @@ package cz.cvut.indepmod.classmodel.workspace.cell.model.classModel;
  * Date: 3.10.2010
  * Time: 9:52:29
  */
-public class AttributeModel {
+public class AttributeModel extends AbstractModel {
     private TypeModel type;
     private String name;
 
@@ -32,4 +32,11 @@ public class AttributeModel {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return this.name +" : "+ this.type.getTypeName();
+    }
+
+
 }

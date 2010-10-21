@@ -88,8 +88,7 @@ public class ClassComponent extends JComponent {
 
         int stage = 1;
         for (AttributeModel attr : attrs ) {
-            String text = attr.getName() +" : "+ attr.getType().getTypeName();
-            g.drawString(text, 5, stage * 20 - 5);
+            g.drawString(attr.toString(), 5, stage * 20 - 5);
             stage++;
         }
     }

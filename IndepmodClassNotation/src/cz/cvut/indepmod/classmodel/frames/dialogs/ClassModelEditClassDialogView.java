@@ -17,17 +17,20 @@ public class ClassModelEditClassDialogView extends ClassModelAbstractDialog {
 
     public static final String TITLE = "Class Edit";
     public static final String NAME_LABEL = "Name";
+    public static final String ATTRIBUTES_LABEL = "Attributes";
     public static final String SAVE_BUTTON = "Edit";
     public static final String CANCEL_BUTTON = "Cancel";
     public static final String ADD_ATTRIBUTE_BUTTON = "Add Atribute";
     public static final String REMOVE_ATTRIBUTE_BUTTON = "Del Atribute";
 
     protected JLabel classNameLabel = new JLabel(NAME_LABEL);
+    protected JLabel attributesLabel = new JLabel(ATTRIBUTES_LABEL);
     protected JTextField classNameField = new JTextField();
     protected JButton addAttributeButton = new JButton(ADD_ATTRIBUTE_BUTTON);
     protected JButton removeAttributeButton = new JButton(REMOVE_ATTRIBUTE_BUTTON);
     protected JButton saveButton = new JButton(SAVE_BUTTON);
     protected JButton cancelButton = new JButton(CANCEL_BUTTON);
+    protected JList attributeList = new JList(new DefaultListModel());
 
 
     public ClassModelEditClassDialogView(Frame owner) {
@@ -44,6 +47,9 @@ public class ClassModelEditClassDialogView extends ClassModelAbstractDialog {
 
         this.add(this.addAttributeButton);
         this.add(this.removeAttributeButton);
+
+        this.add(this.attributesLabel);
+        this.add(this.attributeList);
 
         this.add(this.saveButton);
         this.add(this.cancelButton);

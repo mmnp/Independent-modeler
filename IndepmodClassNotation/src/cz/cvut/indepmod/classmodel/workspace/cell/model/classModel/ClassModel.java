@@ -85,5 +85,11 @@ public class ClassModel extends TypeModel {
 
     public void addAttribute(AttributeModel attr) {
         this.attributeModels.add(attr);
+        this.fireModelChanged();
+    }
+
+    public void removeAttribute(AttributeModel attr) {
+        this.attributeModels.remove(attr);
+        this.fireModelChanged();
     }
 }

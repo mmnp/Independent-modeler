@@ -10,7 +10,7 @@ import java.util.Set;
  * Date: 3.10.2010
  * Time: 9:52:44
  */
-public class MethodModel {
+public class MethodModel extends AbstractModel {
 
     private TypeModel type;
     private String name;
