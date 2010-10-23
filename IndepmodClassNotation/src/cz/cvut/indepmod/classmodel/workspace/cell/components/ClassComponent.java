@@ -2,6 +2,7 @@ package cz.cvut.indepmod.classmodel.workspace.cell.components;
 
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.AttributeModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.ClassModel;
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.MethodModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,21 +39,6 @@ public class ClassComponent extends JComponent {
         this.paintClassPart(g.create(0, 0, d.width, namePartHeight));
         this.paintAttributePart(g.create(0, namePartHeight, d.width, attributePartHeight));
         this.paintMethodPart(g.create(0, namePartHeight + attributePartHeight, d.width, methodPartHeight));
-
-        /*int width = d.width;
-        int height = (int) Math.floor(d.height / 3);
-
-        g.setColor(Color.BLACK);
-        g.setFont(CLASS_NAME_FONT);
-
-        String className = this.model.toString();
-        Rectangle2D rect = g.getFontMetrics().getStringBounds(className, g);
-
-        g.drawString(className, (int) ((width - rect.getWidth()) / 2), height - 5);
-
-        g.drawRect(0, 0, width - 1, height);
-        g.drawRect(0, height, width - 1, height);
-        g.drawRect(0, 2 * height, width - 1, height - 1);*/
     }
 
     @Override
@@ -96,13 +82,18 @@ public class ClassComponent extends JComponent {
     private void paintMethodPart(Graphics g) {
         int width = getSize().width;
         int height = this.getMethodPartHeight();
+        Set<MethodModel> attrs = this.model.getMethodModels();
 
         g.setColor(Color.BLACK);
         g.drawRect(0, 0, width - 1, height - 1);
 
-        /*g.setFont(CLASS_NAME_FONT);
-        Rectangle2D rect = g.getFontMetrics().getStringBounds(className, g);
-        g.drawString(className, (int) ((width - rect.getWidth()) / 2), height - 5);*/
+        g.setFont(CLASS_NAME_FONT);
+
+        int stage = 1;
+        for (MethodModel method : attrs) {
+            g.drawString(method.toString(), 5, stage * 20 - 5);
+            stage++;
+        }
     }
 
     private int getNamePartHeight() {
