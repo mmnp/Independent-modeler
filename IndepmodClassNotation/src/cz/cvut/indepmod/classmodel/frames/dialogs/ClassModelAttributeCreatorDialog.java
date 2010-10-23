@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -46,6 +45,10 @@ public class ClassModelAttributeCreatorDialog extends ClassModelAbstractDialog {
         this.setSizes();
     }
 
+    public AttributeModel getAttribute() {
+        return this.returnValue;
+    }
+
     private void initLayout() {
         this.setLayout(new GridLayout(3, 1));
 
@@ -71,10 +74,6 @@ public class ClassModelAttributeCreatorDialog extends ClassModelAbstractDialog {
                 dispose();
             }
         });
-    }
-
-    public AttributeModel getAttribute() {
-        return this.returnValue;
     }
 
 
