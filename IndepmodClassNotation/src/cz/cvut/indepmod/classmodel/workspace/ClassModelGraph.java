@@ -14,8 +14,10 @@ import org.jgraph.graph.DefaultGraphCell;
 
 import java.awt.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 import org.jgraph.graph.CellView;
 
@@ -26,6 +28,8 @@ public class ClassModelGraph extends JGraph {
     private Map<String, ClassModelAbstractAction> actions;
     private ToolChooserModel selectedTool;
 
+    private Set<TypeModel> staticModels;
+
 
     public ClassModelGraph(Map<String, ClassModelAbstractAction> actions, ToolChooserModel selectedTool) {
         this.actions = actions;
@@ -33,6 +37,7 @@ public class ClassModelGraph extends JGraph {
 
         this.initActions();
         this.initEventHandling();
+        this.initStaticTypes();
     }
 
     //TODO - this could be saved (and updated when model id changed)
@@ -47,6 +52,7 @@ public class ClassModelGraph extends JGraph {
             }
         }
 
+        res.addAll(this.staticModels);
         return res;
     }
 
@@ -57,6 +63,20 @@ public class ClassModelGraph extends JGraph {
 
         this.getGraphLayoutCache().insert(cell);
         this.selectedTool.setSelectedTool(ToolChooserModel.Tool.TOOL_CONTROLL);
+    }
+
+    /**
+     * TODO - this will be loaded from a XML. Only temporary
+     */
+    private void initStaticTypes() {
+        this.staticModels = new HashSet<TypeModel>();
+        this.staticModels.add(new TypeModel("String"));
+        this.staticModels.add(new TypeModel("int"));
+        this.staticModels.add(new TypeModel("char"));
+        this.staticModels.add(new TypeModel("boolean"));
+        this.staticModels.add(new TypeModel("long"));
+        this.staticModels.add(new TypeModel("double"));
+        this.staticModels.add(new TypeModel("float"));
     }
 
     private void initActions() {

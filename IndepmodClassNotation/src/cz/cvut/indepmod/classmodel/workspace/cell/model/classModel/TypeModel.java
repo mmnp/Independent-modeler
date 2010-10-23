@@ -38,5 +38,12 @@ public class TypeModel extends AbstractModel {
         this.typeName = typeName;
     }
 
+    @Override
+    public String toString() {
+        return this.typeName;
+    }
+
+
+
 
 }
