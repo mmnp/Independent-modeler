@@ -89,13 +89,41 @@ public class ClassModel extends TypeModel {
         return Collections.unmodifiableSet(attributeModels);
     }
 
+    /**
+     * Adds new attribute to this class model. If this attribute is already here
+     * it will not be apended
+     * @param attr new attribute to add
+     */
     public void addAttribute(AttributeModel attr) {
         this.attributeModels.add(attr);
         this.fireModelChanged();
     }
 
+    /**
+     * Removes the attribute from this class model (sure if the attribute is
+     * here).
+     * @param attr
+     */
     public void removeAttribute(AttributeModel attr) {
         this.attributeModels.remove(attr);
+        this.fireModelChanged();
+    }
+
+    /**
+     * Removes the method from this class model if there is this method.
+     * @param method a method to be removed from this model
+     */
+    public void removeMethod(MethodModel method) {
+        this.methodModels.remove(method);
+        this.fireModelChanged();
+    }
+
+    /**
+     * Adds the method to this class if it is not already here
+     * @param method a method to be added to this model
+     */
+    public void addMethod(MethodModel method) {
+        this.methodModels.add(method);
         this.fireModelChanged();
     }
 }

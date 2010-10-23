@@ -53,4 +53,28 @@ public class MethodModel extends AbstractModel {
     public Set<AttributeModel> getAttributeModels() {
         return Collections.unmodifiableSet(this.attributeModels);
     }
+
+    @Override
+    public String toString() {
+        StringBuffer bfr = new StringBuffer(30);
+        bfr.append(this.type.toString());
+        bfr.append(" ");
+        bfr.append(this.name);
+        bfr.append("(");
+
+        boolean comma = false;
+        for (AttributeModel attr : this.getAttributeModels()) {
+            if (comma) {
+                bfr.append(", ");
+            } else {
+                comma = true;
+            }
+            
+            bfr.append(attr.toString());
+        }
+
+        bfr.append(")");
+
+        return bfr.toString();
+    }
 }

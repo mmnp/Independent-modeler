@@ -2,11 +2,14 @@ package cz.cvut.indepmod.classmodel.frames.dialogs;
 
 import cz.cvut.indepmod.classmodel.actions.ClassModelCancelEditClassDialog;
 import cz.cvut.indepmod.classmodel.actions.ClassModelEditClassDialogAddAttribute;
+import cz.cvut.indepmod.classmodel.actions.ClassModelEditClassDialogAddMethod;
 import cz.cvut.indepmod.classmodel.actions.ClassModelEditClassDialogRemoveAttribute;
+import cz.cvut.indepmod.classmodel.actions.ClassModelEditClassDialogRemoveMethod;
 import cz.cvut.indepmod.classmodel.actions.ClassModelSaveEditClassDialog;
 import cz.cvut.indepmod.classmodel.workspace.ClassModelGraph;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.AttributeModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.ClassModel;
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.MethodModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.ModelListener;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.TypeModel;
 import org.jgraph.graph.DefaultGraphCell;
@@ -33,14 +36,20 @@ public class ClassModelEditClassDialog extends ClassModelEditClassDialogView imp
     private ClassModelGraph graph;
     private DefaultGraphCell cell;
 
+    private DefaultListModel attributeListModel;
+    private DefaultListModel methodListModel;
+
     public ClassModelEditClassDialog(Frame owner, ClassModelGraph graph, DefaultGraphCell cell, ClassModel cellModel) {
         super(owner);
         this.classModel = cellModel;
         this.graph = graph;
         this.cell = cell;
 
-        this.initAction();
+        this.attributeListModel = new DefaultListModel();
+        this.methodListModel = new DefaultListModel();
+
         this.initValues();
+        this.initAction();
         this.initHandlers();
         this.setSizes();
     }
@@ -50,7 +59,15 @@ public class ClassModelEditClassDialog extends ClassModelEditClassDialogView imp
      * @return selected attribute
      */
     public AttributeModel getSelectedAttribute() {
-        return (AttributeModel) attributeList.getSelectedValue();
+        return (AttributeModel) this.attributeList.getSelectedValue();
+    }
+
+    /**
+     * Returns selected Method in the methods list
+     * @return selected method
+     */
+    public MethodModel getSelectedMethod() {
+        return (MethodModel) this.methodList.getSelectedValue();
     }
 
     /**
@@ -94,21 +111,33 @@ public class ClassModelEditClassDialog extends ClassModelEditClassDialogView imp
         this.classNameField.setSelectionStart(0);
         this.classNameField.setSelectionEnd(typeName.length());
 
-        this.attributeList.setModel(new DefaultListModel()); //TODO - List in  JAVA SE 7 is a generic type
-        this.loadListValues();
+        this.attributeList.setModel(this.attributeListModel); //TODO - List in  JAVA SE 7 is a generic type
+        this.methodList.setModel(this.methodListModel);
+        this.loadAttributeListValues();
+        this.loadMethodsListValues();
     }
 
     /**
      * Loads list of attributes into the attribute list which is situated in the
      * dialog
      */
-    private void loadListValues() {
+    private void loadAttributeListValues() {
         Set<AttributeModel> attributes = this.classModel.getAttributeModels();
-        DefaultListModel model = (DefaultListModel) this.attributeList.getModel();
-
-        model.clear();
+        this.attributeListModel.clear();
         for (AttributeModel attr : attributes) {
-            model.addElement(attr);
+            this.attributeListModel.addElement(attr);
+        }
+    }
+
+    /**
+     * Loads list of attributes into the attribute list which is situated in the
+     * dialog
+     */
+    private void loadMethodsListValues() {
+        Set<MethodModel> methods = this.classModel.getMethodModels();
+        this.methodListModel.clear();
+        for (MethodModel method : methods) {
+            this.methodListModel.addElement(method);
         }
     }
 
@@ -117,11 +146,10 @@ public class ClassModelEditClassDialog extends ClassModelEditClassDialogView imp
      */
     private void initAction() {
         this.removeAttributeButton.addActionListener(new ClassModelEditClassDialogRemoveAttribute(this.classModel, this));
-
         this.addAttributeButton.addActionListener(new ClassModelEditClassDialogAddAttribute(this.classModel, this));
-
+        this.addMethodButton.addActionListener(new ClassModelEditClassDialogAddMethod(this.classModel, this));
+        this.removeMethodButton.addActionListener(new ClassModelEditClassDialogRemoveMethod(this.classModel, this));
         this.saveButton.addActionListener(new ClassModelSaveEditClassDialog(this.classModel, this));
-
         this.cancelButton.addActionListener(new ClassModelCancelEditClassDialog(this));
     }
 
@@ -136,6 +164,7 @@ public class ClassModelEditClassDialog extends ClassModelEditClassDialogView imp
 
     @Override
     public void modelChanged() {
-        this.loadListValues();
+        this.loadAttributeListValues();
+        this.loadMethodsListValues();
     }
 }

@@ -36,8 +36,8 @@ public class ClassModelEditClassDialogView extends ClassModelAbstractDialog {
     protected JButton removeMethodButton = new JButton(REMOVE_METHOD_BUTTON);
     protected JButton saveButton = new JButton(SAVE_BUTTON);
     protected JButton cancelButton = new JButton(CANCEL_BUTTON);
-    protected JList attributeList = new JList(new DefaultListModel());
-    protected JList methodList = new JList(new DefaultListModel());
+    protected JList attributeList = new JList();
+    protected JList methodList = new JList();
 
 
     public ClassModelEditClassDialogView(Frame owner) {
