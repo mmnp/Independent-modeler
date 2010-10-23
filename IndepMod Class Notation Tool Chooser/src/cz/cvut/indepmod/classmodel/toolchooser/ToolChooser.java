@@ -6,11 +6,13 @@ import cz.cvut.indepmod.classmodel.api.ToolChooserModelListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
+import java.util.List;
 import java.util.logging.Logger;
 import org.openide.util.Lookup;
 import org.openide.util.LookupEvent;
 import org.openide.util.LookupListener;
 import org.openide.util.Utilities;
+import org.openide.windows.Mode;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 
@@ -43,6 +45,18 @@ public class ToolChooser extends ToolChooserView {
 
         this.initActions();
     }
+
+    @Override
+    public List<Mode> availableModes(List<Mode> modes) {
+        for (Mode mode : modes) {
+            if (!mode.getName().equals("rightSlidingSide")) {
+                modes.remove(mode);
+            }
+        }
+        return modes;
+    }
+
+
 
     public ToolChooserModel getModel() {
         return model;

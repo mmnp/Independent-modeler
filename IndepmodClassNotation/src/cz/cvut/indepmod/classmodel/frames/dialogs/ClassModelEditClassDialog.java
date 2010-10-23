@@ -83,10 +83,12 @@ public class ClassModelEditClassDialog extends ClassModelEditClassDialogView imp
             @Override
             public void actionPerformed(ActionEvent e) {
                 Frame window = WindowManager.getDefault().getMainWindow();
-                AttributeModel attr = new ClassModelAttributeCreatorDialog(window).getAttribute();
+                AttributeModel attr = new ClassModelAttributeCreatorDialog(window, graph.getAllTypes()).getAttribute();
 
-                classModel.addAttribute(attr);
-                graph.getGraphLayoutCache().editCell(cell, new HashMap());
+                if (attr != null) {
+                    classModel.addAttribute(attr);
+                    graph.getGraphLayoutCache().editCell(cell, new HashMap());
+                }
             }
         });
 

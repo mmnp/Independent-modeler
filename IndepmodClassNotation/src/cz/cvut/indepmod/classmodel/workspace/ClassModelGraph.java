@@ -5,14 +5,20 @@ import cz.cvut.indepmod.classmodel.actions.ClassModelEditAction;
 import cz.cvut.indepmod.classmodel.api.ToolChooserModel;
 import cz.cvut.indepmod.classmodel.api.ToolChooserModelListener;
 import cz.cvut.indepmod.classmodel.workspace.cell.ClassModelCellFactory;
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.ClassModel;
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.TypeModel;
 import org.jgraph.JGraph;
 import org.jgraph.event.GraphSelectionEvent;
 import org.jgraph.event.GraphSelectionListener;
 import org.jgraph.graph.DefaultGraphCell;
 
 import java.awt.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.logging.Logger;
+import org.jgraph.graph.CellView;
 
 public class ClassModelGraph extends JGraph {
 
@@ -28,6 +34,20 @@ public class ClassModelGraph extends JGraph {
 
         this.initActions();
         this.initEventHandling();
+    }
+
+    public Collection<TypeModel> getAllTypes() {
+        Collection<TypeModel> res = new LinkedList<TypeModel>();
+        CellView[] cw = this.getGraphLayoutCache().getCellViews();
+        for (int i = 0; i < cw.length; i++) {
+            DefaultGraphCell cell = (DefaultGraphCell)cw[i].getCell();
+            Object userObject = cell.getUserObject();
+            if (userObject instanceof ClassModel) {
+                res.add((TypeModel) userObject);
+            }
+        }
+
+        return res;
     }
 
     private void initActions() {
