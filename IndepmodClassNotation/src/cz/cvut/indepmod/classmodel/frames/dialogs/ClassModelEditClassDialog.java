@@ -1,5 +1,9 @@
 package cz.cvut.indepmod.classmodel.frames.dialogs;
 
+import cz.cvut.indepmod.classmodel.actions.ClassModelCancelEditClassDialog;
+import cz.cvut.indepmod.classmodel.actions.ClassModelEditClassDialogAddAttribute;
+import cz.cvut.indepmod.classmodel.actions.ClassModelEditClassDialogRemoveAttribute;
+import cz.cvut.indepmod.classmodel.actions.ClassModelSaveEditClassDialog;
 import cz.cvut.indepmod.classmodel.workspace.ClassModelGraph;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.AttributeModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.ClassModel;
@@ -40,6 +44,10 @@ public class ClassModelEditClassDialog extends ClassModelEditClassDialogView imp
         this.setSizes();
     }
 
+    public AttributeModel getSelectedAttribute() {
+        return (AttributeModel) attributeList.getSelectedValue();
+    }
+
     private void initHandlers() {
         this.classModel.addListener(this);
     }
@@ -66,57 +74,13 @@ public class ClassModelEditClassDialog extends ClassModelEditClassDialogView imp
     }
 
     private void initAction() {
-        this.removeAttributeButton.addActionListener(new ActionListener() {
+        this.removeAttributeButton.addActionListener(new ClassModelEditClassDialogRemoveAttribute(this.graph, this.cell, this.classModel, this));
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AttributeModel attr = (AttributeModel) attributeList.getSelectedValue();
-                if (attr != null) {
-                    classModel.removeAttribute(attr);
-                    graph.getGraphLayoutCache().editCell(cell, new HashMap());
-                }
-            }
-        });
+        this.addAttributeButton.addActionListener(new ClassModelEditClassDialogAddAttribute(this.classModel, this.cell, this.graph));
 
-        this.addAttributeButton.addActionListener(new ActionListener() {
+        this.saveButton.addActionListener(new ClassModelSaveEditClassDialog(this.classModel, this.cell, this.graph, this));
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Frame window = WindowManager.getDefault().getMainWindow();
-                AttributeModel attr = new ClassModelAttributeCreatorDialog(window, graph.getAllTypes()).getAttribute();
-
-                if (attr != null) {
-                    classModel.addAttribute(attr);
-                    graph.getGraphLayoutCache().editCell(cell, new HashMap());
-                }
-            }
-        });
-
-        this.saveButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String newClassName = classNameField.getText();
-                if (!newClassName.equals(classModel.getTypeName())) {
-                    if (newClassName.matches("^[A-Za-z][0-9A-Za-z]*$")) {
-                        LOG.info("Changing the name of the class");
-                        classModel.setTypeName(newClassName);
-                    } else {
-                        LOG.warning("Bad name of the class!");
-                    }
-                }
-                graph.getGraphLayoutCache().editCell(cell, new HashMap());
-                dispose();
-            }
-        });
-
-        this.cancelButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        this.cancelButton.addActionListener(new ClassModelCancelEditClassDialog(this));
     }
 
     @Override

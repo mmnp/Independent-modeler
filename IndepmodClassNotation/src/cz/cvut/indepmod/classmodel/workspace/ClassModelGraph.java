@@ -14,7 +14,6 @@ import org.jgraph.graph.DefaultGraphCell;
 
 import java.awt.*;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -36,6 +35,7 @@ public class ClassModelGraph extends JGraph {
         this.initEventHandling();
     }
 
+    //TODO - this could be saved (and updated when model id changed)
     public Collection<TypeModel> getAllTypes() {
         Collection<TypeModel> res = new LinkedList<TypeModel>();
         CellView[] cw = this.getGraphLayoutCache().getCellViews();
@@ -48,6 +48,15 @@ public class ClassModelGraph extends JGraph {
         }
 
         return res;
+    }
+
+    public void insertCell(Point p) {
+        LOG.fine("adding new cell");
+        ToolChooserModel.Tool tool = this.selectedTool.getSelectedTool();
+        DefaultGraphCell cell = ClassModelCellFactory.createCell(p, tool);
+
+        this.getGraphLayoutCache().insert(cell);
+        this.selectedTool.setSelectedTool(ToolChooserModel.Tool.TOOL_CONTROLL);
     }
 
     private void initActions() {
@@ -81,15 +90,6 @@ public class ClassModelGraph extends JGraph {
                 actions.get(ClassModelEditAction.ACTION_NAME).setEnabled(getSelectionCell() != null);
             }
         });
-    }
-
-    public void insertCell(Point p) {
-        LOG.fine("adding new cell");
-        ToolChooserModel.Tool tool = this.selectedTool.getSelectedTool();
-        DefaultGraphCell cell = ClassModelCellFactory.createCell(p, tool);
-
-        this.getGraphLayoutCache().insert(cell);
-        this.selectedTool.setSelectedTool(ToolChooserModel.Tool.TOOL_CONTROLL);
     }
 
 }
