@@ -1,11 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cz.cvut.indepmod.classmodel.workspace.cell.model.classModel;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 

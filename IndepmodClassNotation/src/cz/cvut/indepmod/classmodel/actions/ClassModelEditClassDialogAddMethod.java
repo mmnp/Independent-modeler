@@ -1,17 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cz.cvut.indepmod.classmodel.actions;
 
-import cz.cvut.indepmod.classmodel.frames.dialogs.ClassModelAttributeCreatorDialog;
 import cz.cvut.indepmod.classmodel.frames.dialogs.ClassModelEditClassDialog;
-import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.AttributeModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.ClassModel;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
-import org.openide.windows.WindowManager;
 
 /**
  * Date: 23.10.2010

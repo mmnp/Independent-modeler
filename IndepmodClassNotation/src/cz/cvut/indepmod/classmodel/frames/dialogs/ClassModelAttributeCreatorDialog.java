@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cz.cvut.indepmod.classmodel.frames.dialogs;
 
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.AttributeModel;
