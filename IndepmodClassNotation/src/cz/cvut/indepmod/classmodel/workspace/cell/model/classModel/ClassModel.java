@@ -14,8 +14,14 @@ import java.util.Set;
  */
 public class ClassModel extends TypeModel {
 
+    private static int counter = 0;
+
     private Set<MethodModel> methodModels;
     private Set<AttributeModel> attributeModels;
+
+    public ClassModel() {
+        this("Class"+ ++counter);
+    }
 
     /**
      * Creates new ClassModel with no attributeModels and no methodModels

@@ -39,7 +39,7 @@ public class ClassModelCellFactory {
 
         switch (selectedTool) {
             case TOOL_ADD_CLASS:
-                cell.setUserObject(new ClassModel("Class"));
+                cell.setUserObject(new ClassModel());
                 break;
             default:
                 LOG.severe("Unknown selected tool");
