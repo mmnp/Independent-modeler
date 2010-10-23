@@ -12,6 +12,8 @@ import javax.swing.JDialog;
  * Date: 23.10.2010
  * Time: 11:29:34
  * @author Lucky
+ *
+ * This action is used for Closing of the class edit dialog
  */
 public class ClassModelCancelEditClassDialog extends ClassModelAbstractAction {
 

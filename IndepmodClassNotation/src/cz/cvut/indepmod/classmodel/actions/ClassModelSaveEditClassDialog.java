@@ -5,17 +5,17 @@
 package cz.cvut.indepmod.classmodel.actions;
 
 import cz.cvut.indepmod.classmodel.frames.dialogs.ClassModelEditClassDialog;
-import cz.cvut.indepmod.classmodel.workspace.ClassModelGraph;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.ClassModel;
 import java.awt.event.ActionEvent;
-import java.util.HashMap;
 import java.util.logging.Logger;
-import org.jgraph.graph.DefaultGraphCell;
 
 /**
  * Date: 23.10.2010
  * Time: 11:32:59
  * @author Lucky
+ *
+ * This action saves an edit dialog of the class (and changes the name of the
+ * class)
  */
 public class ClassModelSaveEditClassDialog extends ClassModelAbstractAction {
 
@@ -24,15 +24,11 @@ public class ClassModelSaveEditClassDialog extends ClassModelAbstractAction {
     private static final Logger LOG = Logger.getLogger(ClassModelSaveEditClassDialog.class.getName());
 
     private ClassModel model;
-    private DefaultGraphCell cell;
-    private ClassModelGraph graph;
     private ClassModelEditClassDialog dialog;
 
-    public ClassModelSaveEditClassDialog(ClassModel model, DefaultGraphCell cell, ClassModelGraph graph, ClassModelEditClassDialog dialog) {
+    public ClassModelSaveEditClassDialog(ClassModel model, ClassModelEditClassDialog dialog) {
         super(ACTION_NAME, null);
         this.model = model;
-        this.cell = cell;
-        this.graph = graph;
         this.dialog = dialog;
     }
 
@@ -47,7 +43,7 @@ public class ClassModelSaveEditClassDialog extends ClassModelAbstractAction {
                 LOG.warning("Bad name of the class!");
             }
         }
-        graph.getGraphLayoutCache().editCell(this.cell, new HashMap());
+        this.dialog.updateCell();
         this.dialog.dispose();
     }
 }

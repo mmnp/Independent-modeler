@@ -54,8 +54,4 @@ public class ClassModelEditClassDialogView extends ClassModelAbstractDialog {
         this.add(this.saveButton);
         this.add(this.cancelButton);
     }
-
-    public String getClassName() {
-        return this.classNameField.getText();
-    }
 }
