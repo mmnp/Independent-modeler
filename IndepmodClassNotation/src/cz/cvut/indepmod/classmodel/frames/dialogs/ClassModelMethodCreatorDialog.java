@@ -16,6 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTextField;
+import org.openide.windows.WindowManager;
 
 /**
  * Date: 23.10.2010
@@ -25,7 +26,6 @@ import javax.swing.JTextField;
 public class ClassModelMethodCreatorDialog extends ClassModelAbstractDialog {
 
     public static final String TITLE = "Create Method Dialog";
-
     public static final String LABEL_NAME = "name";
     public static final String LABEL_TYPE = "type";
     public static final String LABEL_ATTRIBUTE = "attributes";
@@ -33,26 +33,19 @@ public class ClassModelMethodCreatorDialog extends ClassModelAbstractDialog {
     public static final String CANCEL_BUTTON = "Cancel";
     public static final String ADD_ATTR_BUTTON = "Add Attribute";
     public static final String REM_ATTR_BUTTON = "Remove Attribute";
-
     private MethodModel returnValue = null;
-
     private Collection<TypeModel> availableTypes;
-
     private JLabel nameLabel;
     private JLabel typeLabel;
     private JLabel attrLabel;
-
     private JTextField nameField;
     private JComboBox typeBox;
     private JList attrList;
-
     private JButton saveButton;
     private JButton cancelButton;
     private JButton addAttrButton;
     private JButton remAttrButton;
-
     private DefaultListModel attributeListModel;
-
 
     public ClassModelMethodCreatorDialog(Frame owner, Collection<TypeModel> types) {
         super(owner, TITLE);
@@ -104,13 +97,13 @@ public class ClassModelMethodCreatorDialog extends ClassModelAbstractDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = nameField.getText();
-                TypeModel returnType = (TypeModel)typeBox.getSelectedItem();
+                TypeModel returnType = (TypeModel) typeBox.getSelectedItem();
 
                 if (name.matches("^[A-Za-z][0-9A-Za-z]*$")) {
                     Set<AttributeModel> attrs = new HashSet<AttributeModel>();
                     int size = attributeListModel.size();
                     for (int i = 0; i < size; i++) {
-                        AttributeModel a = (AttributeModel)attributeListModel.get(i);
+                        AttributeModel a = (AttributeModel) attributeListModel.get(i);
                         attrs.add(a);
                     }
 
@@ -119,9 +112,39 @@ public class ClassModelMethodCreatorDialog extends ClassModelAbstractDialog {
                 }
             }
         });
+
+        this.addAttrButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Frame window = WindowManager.getDefault().getMainWindow();
+                AttributeModel attr = new ClassModelAttributeCreatorDialog(
+                        window,
+                        availableTypes).getAttribute();
+
+                if (attr != null) {
+                    attributeListModel.addElement(attr);
+                }
+            }
+        });
+
+        this.remAttrButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AttributeModel attr = (AttributeModel)attrList.getSelectedValue();
+                if (attr != null) {
+                    attributeListModel.removeElement(attr);
+                }
+            }
+        });
+
+        this.cancelButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
     }
-
-
-
 }
-
