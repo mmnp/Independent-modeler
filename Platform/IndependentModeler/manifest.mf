@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+OpenIDE-Module: cs.cvut.fel.independentmodeler
+OpenIDE-Module-Layer: cs/cvut/fel/independentmodeler/layer.xml
+OpenIDE-Module-Localizing-Bundle: cs/cvut/fel/independentmodeler/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+
