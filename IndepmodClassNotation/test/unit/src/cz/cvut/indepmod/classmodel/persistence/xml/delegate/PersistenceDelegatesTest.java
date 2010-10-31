@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.cvut.indepmod.classmodel.persistence.xml.delegate;
 
 import java.util.Set;
@@ -36,6 +32,7 @@ public class PersistenceDelegatesTest {
     public static final String ATTRIBUTE_NAME = "AttrIbuteTeStTtTtttT";
     public static final String ATTRIBUTE_NAME2 = "attrTest";
     public static final String METHOD_NAME = "METHODnameTest";
+    public static final String METHOD_NAME2 = "methodTest";
     public static final String FILE_NAME = "TestFile.xml";
     private File f;
     private XMLEncoder encoder;
@@ -68,7 +65,7 @@ public class PersistenceDelegatesTest {
     }
 
     /**
-     * Test of initialize method, of class TypeModelPersistenceDelegate.
+     * This test tries to encode, decode and verify TypeModel class
      */
     @Test
     public void testTypeModelEncodeDecode() {
@@ -84,11 +81,20 @@ public class PersistenceDelegatesTest {
     }
 
     /**
-     * Test of initialize method, of class ClassModelPersistenceDelegate.
+     * This test tries to encode, decode and verify ClassModel class
      */
     @Test
     public void testClassModelEncodeDecode() {
-        ClassModel cm = new ClassModel(CLASS_NAME);
+        Set<AttributeModel> attributes = new HashSet<AttributeModel>();
+        attributes.add(new AttributeModel(new TypeModel(TYPE_NAME), ATTRIBUTE_NAME));
+        attributes.add(new AttributeModel(new TypeModel(TYPE_NAME2), ATTRIBUTE_NAME2));
+        attributes.add(new AttributeModel(new TypeModel(TYPE_NAME), ATTRIBUTE_NAME2));
+
+        Set<MethodModel> methods = new HashSet<MethodModel>();
+        methods.add(new MethodModel(new TypeModel(TYPE_NAME), METHOD_NAME, null));
+        methods.add(new MethodModel(new TypeModel(TYPE_NAME2), METHOD_NAME2, null));
+
+        ClassModel cm = new ClassModel(CLASS_NAME, methods, attributes);
         ClassModel dcm = null;
 
         this.encoder.writeObject(cm);
@@ -97,9 +103,14 @@ public class PersistenceDelegatesTest {
         dcm = (ClassModel) this.decode(this.f);
 
         assertEquals(CLASS_NAME, dcm.getTypeName());
+        assertEquals(3, dcm.getAttributeModels().size());
+        assertEquals(2, dcm.getMethodModels().size());
     }
 
     @Test
+    /**
+     * This test tries to encode, decode and verify AttributeModel class
+     */
     public void testAttributeModelEncodeDecode() {
         AttributeModel am = new AttributeModel(new TypeModel(TYPE_NAME), ATTRIBUTE_NAME);
         AttributeModel dam = null;
@@ -113,6 +124,9 @@ public class PersistenceDelegatesTest {
     }
 
     @Test
+    /**
+     * This test tries to encode, decode and verify MethodModel class
+     */
     public void testMethodModelEncodeDecode() {
         Set<AttributeModel> attributes = new HashSet<AttributeModel>();
         attributes.add(new AttributeModel(new TypeModel(TYPE_NAME), ATTRIBUTE_NAME));
