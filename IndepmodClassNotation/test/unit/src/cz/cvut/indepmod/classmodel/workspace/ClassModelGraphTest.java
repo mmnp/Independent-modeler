@@ -60,13 +60,18 @@ public class ClassModelGraphTest {
     @Test
     public void testGetAllTypes() {
         Collection<TypeModel> types = this.graph.getAllTypes();
-        assertEquals(1, types.size());
+        assertTrue(types.size() >= 1);
         
         Iterator<TypeModel> it = types.iterator();
-        TypeModel model = it.next();
-        assertNotNull(model);
-        assertEquals("Test", model.getTypeName());
-        assertEquals("Test", model.toString());
+        boolean isThere = false;
+        while (it.hasNext()) {
+            TypeModel model = it.next();
+            assertNotNull(model);
+            if (model.toString().equals("Test") && model.getTypeName().equals("Test")) {
+                isThere = true;
+            }
+        }
+        assertTrue(isThere);
     }
 
     /**

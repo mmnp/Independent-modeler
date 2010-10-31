@@ -42,7 +42,7 @@ public class ClassModelWorkspace extends TopComponent {
         this.lookupContent.add(this.selectedTool);
         
         this.graph.setMarqueeHandler(new ClassModelMarqueeHandler(this.graph, this.selectedTool, this.popupMenu));
-        this.graph.setGraphLayoutCache(ClassModelDiagramModelFactory.getInstance().createEmptyDiagramModel().getLayoutCache());
+        this.graph.setGraphLayoutCache(ClassModelDiagramModelFactory.getInstance().createEmptyDiagramModel().getLayoutCache()); //TODO: THIS SHOULD BE ADDED THROUGH CONSTRUCTOR
 
         this.initActions();
         this.initPopupMenu();

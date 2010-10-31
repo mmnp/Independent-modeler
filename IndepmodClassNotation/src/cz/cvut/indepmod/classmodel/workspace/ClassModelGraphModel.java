@@ -1,5 +1,7 @@
 package cz.cvut.indepmod.classmodel.workspace;
 
+import java.util.List;
+import org.jgraph.graph.AttributeMap;
 import org.jgraph.graph.DefaultGraphModel;
 
 /**
@@ -10,5 +12,12 @@ import org.jgraph.graph.DefaultGraphModel;
  */
 public class ClassModelGraphModel extends DefaultGraphModel {
 
+    public ClassModelGraphModel() {
+        super();
+    }
+
+    public ClassModelGraphModel(final List roots, final AttributeMap attributes){
+        super(roots, attributes);
+    }
 
 }
