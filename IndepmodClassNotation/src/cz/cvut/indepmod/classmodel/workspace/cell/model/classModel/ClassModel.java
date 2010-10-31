@@ -1,6 +1,5 @@
 package cz.cvut.indepmod.classmodel.workspace.cell.model.classModel;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -77,7 +76,8 @@ public class ClassModel extends TypeModel {
      * @return an unmodifiable view of the method set
      */
     public Set<MethodModel> getMethodModels() {
-        return Collections.unmodifiableSet(methodModels);
+        //return Collections.unmodifiableSet(methodModels);
+        return new HashSet<MethodModel>(this.methodModels);
     }
 
     /**
@@ -86,7 +86,8 @@ public class ClassModel extends TypeModel {
      * @return an unmodifiable view of the attribute set
      */
     public Set<AttributeModel> getAttributeModels() {
-        return Collections.unmodifiableSet(attributeModels);
+        //return Collections.unmodifiableSet(attributeModels);
+        return new HashSet<AttributeModel>(this.attributeModels);
     }
 
     /**

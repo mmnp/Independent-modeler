@@ -51,7 +51,8 @@ public class MethodModel extends AbstractModel {
      * @return an unmodifiable view of the attributes set
      */
     public Set<AttributeModel> getAttributeModels() {
-        return Collections.unmodifiableSet(this.attributeModels);
+        //return Collections.unmodifiableSet(this.attributeModels);
+        return new HashSet<AttributeModel>(this.attributeModels);
     }
 
     @Override
