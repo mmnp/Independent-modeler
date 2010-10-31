@@ -4,12 +4,13 @@ import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.MethodModel;
 import java.beans.DefaultPersistenceDelegate;
 import java.beans.Encoder;
 import java.beans.Expression;
-import java.beans.Statement;
 
 /**
  * Date: 31.10.2010
  * Time: 14:50:45
  * @author Lucky
+ *
+ * This class is XML Persistence delegate for MethodModel objects
  */
 public class MethodModelPersistenceDelegate extends DefaultPersistenceDelegate {
 

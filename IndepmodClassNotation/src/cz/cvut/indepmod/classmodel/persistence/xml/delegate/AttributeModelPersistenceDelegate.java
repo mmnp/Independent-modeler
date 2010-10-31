@@ -9,6 +9,8 @@ import java.beans.Expression;
  * Date: 31.10.2010
  * Time: 14:51:11
  * @author Lucky
+ *
+ * This class is XML Persistence delegate for AttributeModel objects
  */
 public class AttributeModelPersistenceDelegate extends DefaultPersistenceDelegate {
 
