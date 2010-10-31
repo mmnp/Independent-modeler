@@ -52,15 +52,12 @@ public class ClassModel extends TypeModel {
             this.methodModels = new HashSet<MethodModel>(methodModels);
         } else {
             this.methodModels = new HashSet<MethodModel>();
-            this.methodModels.add(new MethodModel(this, "factoryMethod1", null)); //TODO - delete this, only for debuging!
-            this.methodModels.add(new MethodModel(this, "factoryMethod2", null));
         }
 
         if (attributeModels != null) {
             this.attributeModels = new HashSet<AttributeModel>(attributeModels);
         } else {
             this.attributeModels = new HashSet<AttributeModel>();
-            this.attributeModels.add(new AttributeModel(this, "singleton"));
         }
     }
 
