@@ -1,7 +1,15 @@
 package cz.cvut.indepmod.classmodel.persistence.xml;
 
+import cz.cvut.indepmod.classmodel.persistence.xml.delegate.AttributeModelPersistenceDelegate;
+import cz.cvut.indepmod.classmodel.persistence.xml.delegate.ClassModelPersistenceDelegate;
+import cz.cvut.indepmod.classmodel.persistence.xml.delegate.MethodModelPersistenceDelegate;
+import cz.cvut.indepmod.classmodel.persistence.xml.delegate.TypeModelPersistenceDelegate;
 import cz.cvut.indepmod.classmodel.workspace.ClassModelGraphModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.ClassModelVertexView;
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.AttributeModel;
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.ClassModel;
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.MethodModel;
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.TypeModel;
 import java.beans.BeanInfo;
 import java.beans.DefaultPersistenceDelegate;
 import java.beans.Encoder;
@@ -136,6 +144,12 @@ public class ClassModelXMLCoder {
 //        encoder.setPersistenceDelegate(DefaultPort.class,
 //                new DefaultPersistenceDelegate(
 //                new String[]{USER_OBJECT_PROPERTY}));
+
+        //USER OBJECTS AND ITS SUBOBJECTS=======================================
+        encoder.setPersistenceDelegate(ClassModel.class, new ClassModelPersistenceDelegate());
+        encoder.setPersistenceDelegate(AttributeModel.class, new AttributeModelPersistenceDelegate());
+        encoder.setPersistenceDelegate(MethodModel.class, new MethodModelPersistenceDelegate());
+        encoder.setPersistenceDelegate(TypeModel.class, new TypeModelPersistenceDelegate());
 
         //GRAPH VIEWS===========================================================
 //        encoder.setPersistenceDelegate(AbstractCellView.class,

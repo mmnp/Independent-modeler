@@ -1,6 +1,9 @@
 package cz.cvut.indepmod.classmodel.persistence.xml.delegate;
 
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.TypeModel;
 import java.beans.DefaultPersistenceDelegate;
+import java.beans.Encoder;
+import java.beans.Expression;
 
 /**
  * Date: 31.10.2010
@@ -8,5 +11,13 @@ import java.beans.DefaultPersistenceDelegate;
  * @author Lucky
  */
 public class TypeModelPersistenceDelegate extends DefaultPersistenceDelegate {
+
+    @Override
+    protected Expression instantiate(Object oldInstance, Encoder out) {
+        TypeModel m = (TypeModel) oldInstance;
+        return new Expression(oldInstance, oldInstance.getClass(), "new", new Object[]{m.getTypeName()});
+    }
+
+
 
 }
