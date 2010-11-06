@@ -28,13 +28,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.jgraph.graph.AbstractCellView;
 import org.jgraph.graph.DefaultEdge;
 import org.jgraph.graph.DefaultGraphCell;
 import org.jgraph.graph.DefaultGraphModel;
-import org.jgraph.graph.DefaultPort;
 import org.jgraph.graph.EdgeView;
 import org.jgraph.graph.GraphConstants;
 import org.jgraph.graph.GraphLayoutCache;
@@ -64,12 +63,26 @@ public class ClassModelXMLCoder {
     public static final String ROUNTING_DEFAULT_PROPERTY = "getROUTING_DEFAULT";
     public static final String TRANSIENT_PROPERTY = "transient";
     private static final Logger LOG = Logger.getLogger(ClassModelXMLCoder.class.getName());
+    private static ClassModelXMLCoder singleton;
 
     static {
         makeTransient(ClassModelVertexView.class);
         makeTransient(EdgeView.class);
         makeTransient(PortView.class);
     }
+
+    public static ClassModelXMLCoder getInstance() {
+        if (singleton == null) {
+            singleton = new ClassModelXMLCoder();
+        }
+
+        return singleton;
+    }
+
+    private ClassModelXMLCoder() {
+    }
+
+    
 
     public void encode(GraphLayoutCache graphLayoutCache, String fileName) {
         XMLEncoder encoder;
@@ -94,6 +107,8 @@ public class ClassModelXMLCoder {
                 return (GraphLayoutCache) obj;
             }
         } catch (FileNotFoundException ex) {
+            LOG.severe(ex.getMessage());
+        } catch (NoSuchElementException ex) {
             LOG.severe(ex.getMessage());
         }
         return null;
