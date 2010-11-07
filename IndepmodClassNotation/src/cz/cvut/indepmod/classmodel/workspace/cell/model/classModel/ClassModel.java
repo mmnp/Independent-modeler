@@ -1,5 +1,6 @@
 package cz.cvut.indepmod.classmodel.workspace.cell.model.classModel;
 
+import cz.cvut.indepmod.classmodel.api.model.IClass;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ import java.util.Set;
  * <p/>
  * Model of a Class in the Class diagram.
  */
-public class ClassModel extends TypeModel {
+public class ClassModel extends TypeModel implements IClass {
 
     private static int counter = 0;
 
@@ -68,20 +69,22 @@ public class ClassModel extends TypeModel {
 
 
     /**
-     * Returns an unmodifiable view of the method set
+     * Returns a view of the method set
      *
-     * @return an unmodifiable view of the method set
+     * @return a view of the method set
      */
+    @Override
     public Set<MethodModel> getMethodModels() {
         //return Collections.unmodifiableSet(methodModels);
         return new HashSet<MethodModel>(this.methodModels);
     }
 
     /**
-     * Returns an unmodifiable view of the attribute set
+     * Returns a view of the attribute set
      *
-     * @return an unmodifiable view of the attribute set
+     * @return a view of the attribute set
      */
+    @Override
     public Set<AttributeModel> getAttributeModels() {
         //return Collections.unmodifiableSet(attributeModels);
         return new HashSet<AttributeModel>(this.attributeModels);

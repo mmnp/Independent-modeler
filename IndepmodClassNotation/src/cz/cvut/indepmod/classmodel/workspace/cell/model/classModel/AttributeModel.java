@@ -1,12 +1,15 @@
 package cz.cvut.indepmod.classmodel.workspace.cell.model.classModel;
 
+import cz.cvut.indepmod.classmodel.api.model.IAttribute;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Lucky
  * Date: 3.10.2010
  * Time: 9:52:29
  */
-public class AttributeModel extends AbstractModel {
+public class AttributeModel extends AbstractModel implements IAttribute {
+
     private TypeModel type;
     private String name;
 
@@ -20,6 +23,7 @@ public class AttributeModel extends AbstractModel {
      *
      * @return Type instantion
      */
+    @Override
     public TypeModel getType() {
         return type;
     }
@@ -29,14 +33,13 @@ public class AttributeModel extends AbstractModel {
      *
      * @return the name of this attribute
      */
+    @Override
     public String getName() {
         return name;
     }
 
     @Override
     public String toString() {
-        return this.name +" : "+ this.type.getTypeName();
+        return this.name + " : " + this.type.getTypeName();
     }
-
-
 }

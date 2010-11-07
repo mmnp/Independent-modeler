@@ -17,6 +17,7 @@
             </module-dependencies>
             <public-packages>
                 <package>cz.cvut.indepmod.classmodel.api</package>
+                <package>cz.cvut.indepmod.classmodel.api.model</package>
             </public-packages>
         </data>
     </configuration>

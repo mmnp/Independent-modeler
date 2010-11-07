@@ -1,5 +1,7 @@
 package cz.cvut.indepmod.classmodel.workspace.cell.model.classModel;
 
+import cz.cvut.indepmod.classmodel.api.model.IType;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Lucky
@@ -8,7 +10,7 @@ package cz.cvut.indepmod.classmodel.workspace.cell.model.classModel;
  * <p/>
  * This class represents the data type (Class name, return type of method or data type of an attribute)
  */
-public class TypeModel extends AbstractModel {
+public class TypeModel extends AbstractModel implements IType {
 
     private String typeName;
 
@@ -26,6 +28,7 @@ public class TypeModel extends AbstractModel {
      *
      * @return the name
      */
+    @Override
     public String getTypeName() {
         return typeName;
     }
@@ -42,8 +45,4 @@ public class TypeModel extends AbstractModel {
     public String toString() {
         return this.typeName;
     }
-
-
-
-
 }

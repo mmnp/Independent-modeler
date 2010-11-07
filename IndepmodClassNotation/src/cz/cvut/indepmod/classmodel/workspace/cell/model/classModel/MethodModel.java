@@ -1,6 +1,6 @@
 package cz.cvut.indepmod.classmodel.workspace.cell.model.classModel;
 
-import java.util.Collections;
+import cz.cvut.indepmod.classmodel.api.model.IMethod;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,7 +10,7 @@ import java.util.Set;
  * Date: 3.10.2010
  * Time: 9:52:44
  */
-public class MethodModel extends AbstractModel {
+public class MethodModel extends AbstractModel implements IMethod {
 
     private TypeModel type;
     private String name;
@@ -32,6 +32,7 @@ public class MethodModel extends AbstractModel {
      *
      * @return Type instantion
      */
+    @Override
     public TypeModel getType() {
         return this.type;
     }
@@ -41,6 +42,7 @@ public class MethodModel extends AbstractModel {
      *
      * @return name of the method
      */
+    @Override
     public String getName() {
         return this.name;
     }
@@ -50,6 +52,7 @@ public class MethodModel extends AbstractModel {
      *
      * @return an unmodifiable view of the attributes set
      */
+    @Override
     public Set<AttributeModel> getAttributeModels() {
         //return Collections.unmodifiableSet(this.attributeModels);
         return new HashSet<AttributeModel>(this.attributeModels);
@@ -57,7 +60,7 @@ public class MethodModel extends AbstractModel {
 
     @Override
     public String toString() {
-        StringBuffer bfr = new StringBuffer(30);
+        StringBuilder bfr = new StringBuilder(30);
         bfr.append(this.type.toString());
         bfr.append(" ");
         bfr.append(this.name);
