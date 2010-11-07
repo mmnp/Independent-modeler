@@ -54,7 +54,7 @@ public class ClassModelXMLCoderTest {
         this.graph.getGraphLayoutCache().insert(cell2);
 
 
-        ClassModelXMLCoder encoder = new ClassModelXMLCoder();
+        ClassModelXMLCoder encoder = ClassModelXMLCoder.getInstance();
         encoder.encode(this.graph.getGraphLayoutCache(), FILE_NAME);
 
         this.graph.setGraphLayoutCache(encoder.decode(FILE_NAME));
