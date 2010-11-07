@@ -16,9 +16,7 @@ import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.TypeModel;
 import org.jgraph.graph.DefaultGraphCell;
 import org.jgraph.graph.GraphConstants;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -35,7 +33,7 @@ public class ClassModelGraphTest {
         this.graph = new ClassModelGraph(new HashMap<String, ClassModelAbstractAction>(), new ToolChooserModel());
 
         DefaultGraphCell cell = new DefaultGraphCell();
-        cell.setUserObject(new ClassModel("Test", cell));
+        cell.setUserObject(new ClassModel("Test"));
         GraphConstants.setBounds(cell.getAttributes(), new Rectangle.Double(10, 10, 100, 60));
         this.graph.getGraphLayoutCache().insert(cell);
     }
