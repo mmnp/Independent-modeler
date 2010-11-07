@@ -29,6 +29,7 @@ public class ClassModelWorkspace extends CloneableTopComponent {
     public static final String DISPLAY_NAME = "Class Notation";
     
     private ClassModelGraph graph;
+    private ClassModelModel model; //TODO - This could be directly ClassModelGraph
     private JPopupMenu popupMenu;
     private Map<String, ClassModelAbstractAction> actions;
     private ToolChooserModel selectedTool;
@@ -60,6 +61,7 @@ public class ClassModelWorkspace extends CloneableTopComponent {
         this.popupMenu = new JPopupMenu();
         this.selectedTool = new ToolChooserModel();
         this.graph = new ClassModelGraph(this.actions, this.selectedTool);
+        this.model = new ClassModelModel(this.graph);
         this.saveCookie = new ClassModelSaveCookie(this, this.graph);
 
         this.graph.setMarqueeHandler(new ClassModelMarqueeHandler(this.graph, this.selectedTool, this.popupMenu));
@@ -110,5 +112,6 @@ public class ClassModelWorkspace extends CloneableTopComponent {
         this.associateLookup(new AbstractLookup(this.lookupContent));
         this.lookupContent.add(this.selectedTool);
         this.lookupContent.add(this.saveCookie);
+        this.lookupContent.add(this.model);
     }
 }

@@ -42,17 +42,34 @@ public class ClassModelGraph extends JGraph {
 
     //TODO - this could be saved (and updated when model id changed)
     public Collection<TypeModel> getAllTypes() {
-        Collection<TypeModel> res = new LinkedList<TypeModel>();
+        Collection<TypeModel> res = new LinkedList<TypeModel>(this.getAllClasses());
+//        CellView[] cw = this.getGraphLayoutCache().getCellViews();
+//        for (int i = 0; i < cw.length; i++) {
+//            DefaultGraphCell cell = (DefaultGraphCell)cw[i].getCell();
+//            Object userObject = cell.getUserObject();
+//            if (userObject instanceof ClassModel) {
+//                res.add((TypeModel) userObject);
+//            }
+//        }
+
+        res.addAll(this.staticModels);
+        return res;
+    }
+
+    /**
+     * Returns collection of all classes that are in the Graph
+     * @return Colection of all classes
+     */
+    public Collection<ClassModel> getAllClasses() {
+        Collection<ClassModel> res = new LinkedList<ClassModel>();
         CellView[] cw = this.getGraphLayoutCache().getCellViews();
         for (int i = 0; i < cw.length; i++) {
             DefaultGraphCell cell = (DefaultGraphCell)cw[i].getCell();
             Object userObject = cell.getUserObject();
             if (userObject instanceof ClassModel) {
-                res.add((TypeModel) userObject);
+                res.add((ClassModel) userObject);
             }
         }
-
-        res.addAll(this.staticModels);
         return res;
     }
 

@@ -30,22 +30,12 @@ public class ClassModelGraphTest {
 
     private ClassModelGraph graph;
 
-    public ClassModelGraphTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
     @Before
     public void setUp() {
         this.graph = new ClassModelGraph(new HashMap<String, ClassModelAbstractAction>(), new ToolChooserModel());
 
-        DefaultGraphCell cell = new DefaultGraphCell(new ClassModel("Test"));
+        DefaultGraphCell cell = new DefaultGraphCell();
+        cell.setUserObject(new ClassModel("Test", cell));
         GraphConstants.setBounds(cell.getAttributes(), new Rectangle.Double(10, 10, 100, 60));
         this.graph.getGraphLayoutCache().insert(cell);
     }
@@ -66,6 +56,23 @@ public class ClassModelGraphTest {
         boolean isThere = false;
         while (it.hasNext()) {
             TypeModel model = it.next();
+            assertNotNull(model);
+            if (model.toString().equals("Test") && model.getTypeName().equals("Test")) {
+                isThere = true;
+            }
+        }
+        assertTrue(isThere);
+    }
+
+    @Test
+    public void testGetAllClasses() {
+        Collection<ClassModel> types = this.graph.getAllClasses();
+        assertEquals(1, types.size());
+
+        Iterator<ClassModel> it = types.iterator();
+        boolean isThere = false;
+        while (it.hasNext()) {
+            ClassModel model = it.next();
             assertNotNull(model);
             if (model.toString().equals("Test") && model.getTypeName().equals("Test")) {
                 isThere = true;
