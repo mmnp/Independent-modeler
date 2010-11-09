@@ -127,4 +127,9 @@ public class ClassModel extends TypeModel implements IClass {
         this.methodModels.add(method);
         this.fireModelChanged();
     }
+
+    @Override
+    public Set<? extends IClass> getRelatedClass() {
+        return new HashSet<ClassModel>();
+    }
 }

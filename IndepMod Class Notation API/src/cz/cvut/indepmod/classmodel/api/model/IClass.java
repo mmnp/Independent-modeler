@@ -14,17 +14,22 @@ import java.util.Set;
 public interface IClass extends IType {
 
     /**
-     * Returns an unmodifiable view of the attribute set
+     * Returns an attribute set
      *
-     * @return an unmodifiable view of the attribute set
+     * @return an attribute set
      */
-    Set<? extends IAttribute> getAttributeModels();
+    public Set<? extends IAttribute> getAttributeModels();
 
     /**
-     * Returns an unmodifiable view of the method set
+     * Returns a method set
      *
-     * @return an unmodifiable view of the method set
+     * @return a method set
      */
-    Set<? extends IMethod> getMethodModels();
+    public Set<? extends IMethod> getMethodModels();
 
+    /**
+     * Returns set of related methods
+     * @return related method set
+     */
+    public Set<? extends IClass> getRelatedClass();
 }
