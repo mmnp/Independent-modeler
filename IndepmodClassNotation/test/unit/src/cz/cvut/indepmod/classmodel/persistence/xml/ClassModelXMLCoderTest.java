@@ -73,7 +73,7 @@ public class ClassModelXMLCoderTest {
             }
         }
         assertTrue("Cell 1 is not there after decode", isThereClass1);
-        assertTrue("Cell 2 is not there after decode", isThereClass1);
+        assertTrue("Cell 2 is not there after decode", isThereClass2);
 
         DefaultGraphCell root = (DefaultGraphCell)this.graph.getRoots()[0];
         ClassModel model = (ClassModel)root.getUserObject();
