@@ -1,7 +1,19 @@
 package cz.cvut.indepmod.classmodel.workspace.cell.model.classModel;
 
+import cz.cvut.indepmod.classmodel.api.model.Cardinality;
+import cz.cvut.indepmod.classmodel.api.model.IRelation;
+import cz.cvut.indepmod.classmodel.api.model.RelationType;
+import org.jgraph.graph.Edge;
+import org.jgraph.graph.DefaultEdge;
+import org.jgraph.graph.GraphConstants;
+import cz.cvut.indepmod.classmodel.workspace.cell.ClassModelClassCell;
 import java.util.HashSet;
 import java.util.Set;
+import org.jgraph.JGraph;
+import org.jgraph.graph.DefaultGraphCell;
+import org.jgraph.graph.DefaultPort;
+import org.jgraph.graph.GraphLayoutCache;
+import org.jgraph.graph.Port;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,11 +35,13 @@ public class ClassModelTest {
 
 
     private ClassModel model;
+    private ClassModel model2;
+    private ClassModel model3;
 
 
     @Before
     public void setUp() {
-         Set<AttributeModel> attributes = new HashSet<AttributeModel>();
+        Set<AttributeModel> attributes = new HashSet<AttributeModel>();
         attributes.add(new AttributeModel(new TypeModel(TYPE_NAME), ATTRIBUTE_NAME));
         attributes.add(new AttributeModel(new TypeModel(TYPE_NAME2), ATTRIBUTE_NAME2));
         attributes.add(new AttributeModel(new TypeModel(TYPE_NAME), ATTRIBUTE_NAME2));
@@ -37,6 +51,8 @@ public class ClassModelTest {
         methods.add(new MethodModel(new TypeModel(TYPE_NAME2), METHOD_NAME2, null));
         
         this.model = new ClassModel(CLASS_NAME, methods, attributes);
+        this.model2 = new ClassModel(CLASS_NAME, methods, attributes);
+        this.model3 = new ClassModel(CLASS_NAME, methods, attributes);
     }
 
     @After
@@ -175,6 +191,54 @@ public class ClassModelTest {
 
         m.addMethod(new MethodModel(new TypeModel(TYPE_NAME2), METHOD_NAME2, null));
         assertEquals(2, m.getMethodModels().size());
+    }
+
+    @Test
+    public void testGetRelations() {
+        GraphLayoutCache cache = new GraphLayoutCache();
+        JGraph graph = new JGraph(cache);
+
+        ClassModelClassCell cell1 = new ClassModelClassCell(this.model);
+        ClassModelClassCell cell2 = new ClassModelClassCell(this.model2);
+        ClassModelClassCell cell3 = new ClassModelClassCell(this.model3);
+
+        DefaultPort p1 = new DefaultPort();
+        DefaultPort p2 = new DefaultPort();
+        DefaultPort p3 = new DefaultPort();
+
+        cell1.add(p1);
+        cell2.add(p2);
+        cell3.add(p3);
+
+        DefaultEdge edge = new DefaultEdge();
+        DefaultEdge edge2 = new DefaultEdge();
+        DefaultEdge edge3 = new DefaultEdge();
+        this.initEdge(edge, p1, p2);
+        this.initEdge(edge2, p2, p3);
+        this.initEdge(edge3, p3, p1);
+
+        cache.insert(edge);
+        cache.insert(edge2);
+        cache.insert(edge3);
+
+        IRelation r = this.model.getRelatedClass().iterator().next();
+        assertEquals(this.model, r.getStartingClass());
+        assertEquals(this.model2, r.getEndingClass());
+        assertEquals(Cardinality.ONE, r.getStartCardinality());
+        assertEquals(Cardinality.ONE, r.getEndCardinality());
+        assertEquals(RelationType.RELATION, r.getRelationType());
+    }
+
+    private void initEdge(Edge edge, Port startPort, Port endPort) {
+        edge.setSource(startPort);
+        edge.setTarget(endPort);
+
+        GraphConstants.setEndFill(edge.getAttributes(), true);
+        GraphConstants.setLineStyle(edge.getAttributes(), GraphConstants.STYLE_ORTHOGONAL);
+        GraphConstants.setLabelAlongEdge(edge.getAttributes(), false);
+        GraphConstants.setEditable(edge.getAttributes(), true);
+        GraphConstants.setMoveable(edge.getAttributes(), true);
+        GraphConstants.setDisconnectable(edge.getAttributes(), false);
     }
 
 }

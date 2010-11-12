@@ -1,9 +1,18 @@
 package cz.cvut.indepmod.classmodel.workspace.cell.model.classModel;
 
+import cz.cvut.indepmod.classmodel.api.model.Cardinality;
 import cz.cvut.indepmod.classmodel.api.model.IClass;
 import cz.cvut.indepmod.classmodel.api.model.IRelation;
+import cz.cvut.indepmod.classmodel.api.model.RelationType;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
+import org.jgraph.graph.DefaultGraphCell;
+import org.jgraph.graph.Edge;
+import org.jgraph.graph.Port;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,12 +25,12 @@ import java.util.Set;
 public class ClassModel extends TypeModel implements IClass {
 
     private static int counter = 0;
-
     private Set<MethodModel> methodModels;
     private Set<AttributeModel> attributeModels;
+    private DefaultGraphCell cell;
 
     public ClassModel() {
-        this("Class"+ ++counter);
+        this("Class" + ++counter);
     }
 
     /**
@@ -38,6 +47,7 @@ public class ClassModel extends TypeModel implements IClass {
 
         this.methodModels = new HashSet<MethodModel>(model.getMethodModels());
         this.attributeModels = new HashSet<AttributeModel>(model.getAttributeModels());
+        this.cell = model.cell;
     }
 
     /**
@@ -61,13 +71,18 @@ public class ClassModel extends TypeModel implements IClass {
         } else {
             this.attributeModels = new HashSet<AttributeModel>();
         }
+
+        this.cell = null;
+    }
+
+    public void setCell(DefaultGraphCell cell) {
+        this.cell = cell; //TODO - shouldn't this throw an exception when the cell is already sat?
     }
 
     @Override
     public String toString() {
         return this.getTypeName();
     }
-
 
     /**
      * Returns a view of the method set
@@ -130,7 +145,26 @@ public class ClassModel extends TypeModel implements IClass {
     }
 
     @Override
-    public Set<? extends IRelation> getRelatedClass() {
-        return new HashSet<IRelation>();
+    public Collection<? extends IRelation> getRelatedClass() {
+        List<IRelation> res = new ArrayList<IRelation>();
+        List children = this.cell.getChildren();
+        for (Object childObj : children) {
+            if (childObj instanceof Port) {
+                Port p = (Port) childObj;
+                Iterator it = p.edges();
+                while (it.hasNext()) {
+                    Edge e = (Edge)it.next();
+                    DefaultGraphCell source = (DefaultGraphCell) ((DefaultGraphCell)  e.getSource()).getParent();
+                    DefaultGraphCell target = (DefaultGraphCell) ((DefaultGraphCell)  e.getTarget()).getParent();
+                    IClass sourceClass = (IClass) source.getUserObject();
+                    IClass targetClass = (IClass) target.getUserObject();
+
+                    IRelation relation = new RelationModel(sourceClass, targetClass, RelationType.RELATION, Cardinality.ONE, Cardinality.ONE);
+                    res.add(relation);
+                }
+            }
+        }
+
+        return res;
     }
 }

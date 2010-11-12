@@ -9,6 +9,7 @@ import org.jgraph.graph.GraphConstants;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.logging.Logger;
+import org.jgraph.graph.AttributeMap;
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,7 +24,16 @@ public class ClassModelCellFactory {
     private static final Logger LOG = Logger.getLogger(ClassModelCellFactory.class.getName());
 
     public static DefaultGraphCell createCell(Point2D point, ToolChooserModel.Tool selectedTool) {
-        DefaultGraphCell cell = new DefaultGraphCell();
+        DefaultGraphCell cell = null;
+
+        switch (selectedTool) {
+            case TOOL_ADD_CLASS:
+                cell = new ClassModelClassCell();
+                cell.setUserObject(new ClassModel());
+                break;
+            default:
+                LOG.severe("Unknown selected tool");
+        }
 
         GraphConstants.setBounds(
                 cell.getAttributes(),
@@ -36,14 +46,6 @@ public class ClassModelCellFactory {
         );
 
         GraphConstants.setResize(cell.getAttributes(), true);
-
-        switch (selectedTool) {
-            case TOOL_ADD_CLASS:
-                cell.setUserObject(new ClassModel());
-                break;
-            default:
-                LOG.severe("Unknown selected tool");
-        }
 
         cell.add(new DefaultPort());
 

@@ -20,7 +20,7 @@ public interface IRelation {
      * Returns the class where this relation ends
      * @return ending class
      */
-    public IClass getEndingClasses();
+    public IClass getEndingClass();
 
     /**
      * Returns the starting cardinality

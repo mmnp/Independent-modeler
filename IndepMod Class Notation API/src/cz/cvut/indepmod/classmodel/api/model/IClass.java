@@ -5,6 +5,7 @@
 
 package cz.cvut.indepmod.classmodel.api.model;
 
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -31,5 +32,5 @@ public interface IClass extends IType {
      * Returns set of related methods
      * @return related method set
      */
-    public Set<? extends IRelation> getRelatedClass();
+    public Collection<? extends IRelation> getRelatedClass();
 }
