@@ -31,5 +31,5 @@ public interface IClass extends IType {
      * Returns set of related methods
      * @return related method set
      */
-    public Set<? extends IClass> getRelatedClass();
+    public Set<? extends IRelation> getRelatedClass();
 }

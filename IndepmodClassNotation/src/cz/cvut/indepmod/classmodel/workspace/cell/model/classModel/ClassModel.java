@@ -1,6 +1,7 @@
 package cz.cvut.indepmod.classmodel.workspace.cell.model.classModel;
 
 import cz.cvut.indepmod.classmodel.api.model.IClass;
+import cz.cvut.indepmod.classmodel.api.model.IRelation;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -129,7 +130,7 @@ public class ClassModel extends TypeModel implements IClass {
     }
 
     @Override
-    public Set<? extends IClass> getRelatedClass() {
-        return new HashSet<ClassModel>();
+    public Set<? extends IRelation> getRelatedClass() {
+        return new HashSet<IRelation>();
     }
 }
