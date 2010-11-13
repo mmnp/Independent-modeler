@@ -8,9 +8,9 @@ import org.jgraph.graph.DefaultEdge;
 import org.jgraph.graph.GraphConstants;
 import cz.cvut.indepmod.classmodel.workspace.cell.ClassModelClassCell;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import org.jgraph.JGraph;
-import org.jgraph.graph.DefaultGraphCell;
 import org.jgraph.graph.DefaultPort;
 import org.jgraph.graph.GraphLayoutCache;
 import org.jgraph.graph.Port;
@@ -221,12 +221,22 @@ public class ClassModelTest {
         cache.insert(edge2);
         cache.insert(edge3);
 
-        IRelation r = this.model.getRelatedClass().iterator().next();
+        Iterator<? extends IRelation> it = this.model.getRelatedClass().iterator();
+        IRelation r = it.next();
         assertEquals(this.model, r.getStartingClass());
         assertEquals(this.model2, r.getEndingClass());
         assertEquals(Cardinality.ONE, r.getStartCardinality());
         assertEquals(Cardinality.ONE, r.getEndCardinality());
         assertEquals(RelationType.RELATION, r.getRelationType());
+
+        r = it.next();
+        assertEquals(this.model, r.getEndingClass());
+        assertEquals(this.model3, r.getStartingClass());
+        assertEquals(Cardinality.ONE, r.getStartCardinality());
+        assertEquals(Cardinality.ONE, r.getEndCardinality());
+        assertEquals(RelationType.RELATION, r.getRelationType());
+
+        assertFalse("There is another relation which shouldn't be there!", it.hasNext());
     }
 
     private void initEdge(Edge edge, Port startPort, Port endPort) {
