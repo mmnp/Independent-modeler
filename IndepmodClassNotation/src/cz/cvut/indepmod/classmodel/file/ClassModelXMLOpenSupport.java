@@ -1,7 +1,6 @@
 package cz.cvut.indepmod.classmodel.file;
 
 import cz.cvut.indepmod.classmodel.workspace.ClassModelWorkspace;
-import cz.cvut.indepmod.classmodel.workspace.ClassModelWorkspace;
 import org.openide.cookies.CloseCookie;
 import org.openide.cookies.OpenCookie;
 import org.openide.loaders.MultiDataObject.Entry;

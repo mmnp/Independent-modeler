@@ -19,6 +19,7 @@ import org.jgraph.graph.GraphLayoutCache;
 import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
 import org.openide.windows.CloneableTopComponent;
+import org.openide.windows.TopComponent;
 
 /**
  * This class represents a Workspace of class model notation. It contains JGraph.
@@ -54,6 +55,11 @@ public class ClassModelWorkspace extends CloneableTopComponent {
 
     public ClassModelWorkspace(GraphLayoutCache cache) {
         this.init(cache);
+    }
+
+    @Override
+    public int getPersistenceType() {
+        return TopComponent.PERSISTENCE_NEVER;
     }
 
     private void init(GraphLayoutCache cache) {
