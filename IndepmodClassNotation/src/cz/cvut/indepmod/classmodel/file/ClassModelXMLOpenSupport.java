@@ -23,6 +23,7 @@ class ClassModelXMLOpenSupport extends OpenSupport implements OpenCookie, CloseC
         ClassModelXMLDataObject dobj = (ClassModelXMLDataObject) entry.getDataObject();
 
         ClassModelWorkspace workspace = new ClassModelWorkspace(dobj);
+        workspace.setName(dobj.getName());
         return workspace;
     }
 

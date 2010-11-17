@@ -30,6 +30,7 @@ public class ClassModelSaveCookie implements SaveCookie {
         if (dataObj != null) {
             File f = FileUtil.toFile(dataObj.getPrimaryFile());
             ClassModelXMLCoder.getInstance().encode(this.graph.getGraphLayoutCache(), f.getPath());
+            this.workspace.setModified(false);
         } else {
             
         }

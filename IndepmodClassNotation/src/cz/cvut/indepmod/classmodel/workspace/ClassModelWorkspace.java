@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import org.jgraph.event.GraphModelEvent;
+import org.jgraph.event.GraphModelListener;
 import org.jgraph.graph.GraphLayoutCache;
 import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
@@ -25,10 +27,8 @@ import org.openide.windows.TopComponent;
  * This class represents a Workspace of class model notation. It contains JGraph.
  * @author Lucky
  */
-public class ClassModelWorkspace extends CloneableTopComponent {
+public class ClassModelWorkspace extends CloneableTopComponent implements GraphModelListener {
 
-    public static final String DISPLAY_NAME = "Class Notation";
-    
     private ClassModelGraph graph;
     private ClassModelModel model; //TODO - This could be directly ClassModelGraph
     private JPopupMenu popupMenu;
@@ -36,6 +36,7 @@ public class ClassModelWorkspace extends CloneableTopComponent {
     private ToolChooserModel selectedTool;
     private ClassModelSaveCookie saveCookie;
     private InstanceContent lookupContent = new InstanceContent();
+    private boolean modified;
 
     public ClassModelWorkspace() {
         this.init(ClassModelDiagramModelFactory.getInstance().createEmptyDiagramModel().getLayoutCache());
@@ -62,6 +63,27 @@ public class ClassModelWorkspace extends CloneableTopComponent {
         return TopComponent.PERSISTENCE_NEVER;
     }
 
+    @Override
+    public void graphChanged(GraphModelEvent gme) {
+        this.setModified(true);
+    }
+
+    public void setModified(boolean modified) {
+        if (!this.modified && modified) {
+            this.modified = modified;
+            //this.setFont(this.getFont().deriveFont(Font.BOLD));
+            //this.setHtmlDisplayName(this.getName());
+            this.lookupContent.add(this.saveCookie);
+        } else if (this.modified && !modified) {
+            this.modified = modified;
+            //this.setFont(this.getFont().deriveFont(Font.PLAIN));
+            this.lookupContent.remove(this.saveCookie);
+        }
+    }
+
+
+
+//===========================PRIVATE METHODS====================================
     private void init(GraphLayoutCache cache) {
         this.actions = new HashMap<String, ClassModelAbstractAction>();
         this.popupMenu = new JPopupMenu();
@@ -69,9 +91,11 @@ public class ClassModelWorkspace extends CloneableTopComponent {
         this.graph = new ClassModelGraph(this.actions, this.selectedTool);
         this.model = new ClassModelModel(this.graph);
         this.saveCookie = new ClassModelSaveCookie(this, this.graph);
+        this.modified = false;
 
         this.graph.setMarqueeHandler(new ClassModelMarqueeHandler(this.graph, this.selectedTool, this.popupMenu));
         this.graph.setGraphLayoutCache(cache); //TODO: THIS SHOULD BE ADDED THROUGH CONSTRUCTOR
+        this.graph.getModel().addGraphModelListener(this);
 
         this.initLookup();
         this.initActions();
@@ -117,7 +141,6 @@ public class ClassModelWorkspace extends CloneableTopComponent {
     private void initLookup() {
         this.associateLookup(new AbstractLookup(this.lookupContent));
         this.lookupContent.add(this.selectedTool);
-        this.lookupContent.add(this.saveCookie);
         this.lookupContent.add(this.model);
     }
 }
