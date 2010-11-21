@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Bundle-Localization: org/model/sequencetoolchooser/Bundle
-Bundle-Name: %OpenIDE-Module-Name
-Bundle-SymbolicName: org.model.sequencetoolchooser
-Bundle-Version: 1.0
-OpenIDE-Module-Layer: org/model/sequencetoolchooser/layer.xml
-
