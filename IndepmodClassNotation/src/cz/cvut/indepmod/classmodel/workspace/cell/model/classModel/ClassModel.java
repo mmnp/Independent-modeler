@@ -1,18 +1,15 @@
 package cz.cvut.indepmod.classmodel.workspace.cell.model.classModel;
 
-import cz.cvut.indepmod.classmodel.api.model.Cardinality;
 import cz.cvut.indepmod.classmodel.api.model.IClass;
 import cz.cvut.indepmod.classmodel.api.model.IRelation;
-import cz.cvut.indepmod.classmodel.api.model.RelationType;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import org.jgraph.graph.DefaultEdge;
 import org.jgraph.graph.DefaultGraphCell;
-import org.jgraph.graph.DefaultPort;
-import org.jgraph.graph.Edge;
 import org.jgraph.graph.Port;
 
 /**
@@ -148,26 +145,34 @@ public class ClassModel extends TypeModel implements IClass {
     @Override
     public Collection<? extends IRelation> getRelatedClass() {
         List<IRelation> res = new ArrayList<IRelation>();
-        try {
-            List children = this.cell.getChildren();
-            for (Object childObj : children) {
-                if (childObj instanceof Port) {
-                    Port p = (Port) childObj;
-                    Iterator it = p.edges();
-                    while (it.hasNext()) {
-                        Edge e = (Edge) it.next();
-                        DefaultGraphCell source = (DefaultGraphCell) ((DefaultPort) e.getSource()).getParent();
-                        DefaultGraphCell target = (DefaultGraphCell) ((DefaultPort) e.getTarget()).getParent();
-                        IClass sourceClass = (IClass) source.getUserObject();
-                        IClass targetClass = (IClass) target.getUserObject();
 
-                        IRelation relation = new RelationModel(sourceClass, targetClass, RelationType.RELATION, Cardinality.ONE, Cardinality.ONE);
-                        res.add(relation);
+        if (this.cell == null) {
+            throw new NullPointerException("Cell of ClassModel was not sat.");
+        }
+
+        List children = this.cell.getChildren();
+        for (Object childObj : children) {
+            if (childObj instanceof Port) {
+                Port p = (Port) childObj;
+                Iterator it = p.edges();
+                while (it.hasNext()) {
+                    DefaultEdge e = (DefaultEdge) it.next();
+//                        DefaultGraphCell source = (DefaultGraphCell) ((DefaultPort) e.getSource()).getParent();
+//                        DefaultGraphCell target = (DefaultGraphCell) ((DefaultPort) e.getTarget()).getParent();
+//                        IClass sourceClass = (IClass) source.getUserObject();
+//                        IClass targetClass = (IClass) target.getUserObject();
+//
+//                        IRelation relation = new RelationModel(sourceClass, targetClass, RelationType.RELATION, Cardinality.ONE, Cardinality.ONE);
+
+                    Object o = e.getUserObject();
+                    if (o == null) {
+                        throw new NullPointerException("User object of the edge is null");
                     }
+
+                    IRelation relation = (IRelation) o;
+                    res.add(relation);
                 }
             }
-        } catch (NullPointerException ex) {
-            throw new NullPointerException("Cell of ClassModel was not sat.");
         }
 
         return res;

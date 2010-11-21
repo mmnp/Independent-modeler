@@ -4,9 +4,9 @@ import cz.cvut.indepmod.classmodel.api.model.Cardinality;
 import cz.cvut.indepmod.classmodel.api.model.IRelation;
 import cz.cvut.indepmod.classmodel.api.model.RelationType;
 import org.jgraph.graph.Edge;
-import org.jgraph.graph.DefaultEdge;
 import org.jgraph.graph.GraphConstants;
 import cz.cvut.indepmod.classmodel.workspace.cell.ClassModelClassCell;
+import cz.cvut.indepmod.classmodel.workspace.cell.ClassModelRelation;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -25,19 +25,18 @@ import static org.junit.Assert.*;
  */
 public class ClassModelTest {
 
-    public static final String CLASS_NAME = "MyClass";
+    public static final String CLASS_NAME = "MyClass1";
+    public static final String CLASS_NAME2 = "MyClass2";
+    public static final String CLASS_NAME3 = "MyClass3";
     public static final String TYPE_NAME = "testType";
     public static final String ATTRIBUTE_NAME = "myAttr";
     public static final String TYPE_NAME2 = "myOwnType";
     public static final String ATTRIBUTE_NAME2 = "testAttribute";
     public static final String METHOD_NAME = "bar";
     public static final String METHOD_NAME2 = "foo";
-
-
     private ClassModel model;
     private ClassModel model2;
     private ClassModel model3;
-
 
     @Before
     public void setUp() {
@@ -49,10 +48,10 @@ public class ClassModelTest {
         Set<MethodModel> methods = new HashSet<MethodModel>();
         methods.add(new MethodModel(new TypeModel(TYPE_NAME), METHOD_NAME, null));
         methods.add(new MethodModel(new TypeModel(TYPE_NAME2), METHOD_NAME2, null));
-        
+
         this.model = new ClassModel(CLASS_NAME, methods, attributes);
-        this.model2 = new ClassModel(CLASS_NAME, methods, attributes);
-        this.model3 = new ClassModel(CLASS_NAME, methods, attributes);
+        this.model2 = new ClassModel(CLASS_NAME2, methods, attributes);
+        this.model3 = new ClassModel(CLASS_NAME3, methods, attributes);
     }
 
     @After
@@ -131,7 +130,7 @@ public class ClassModelTest {
     public void testAddAttribute() {
         ClassModel m = new ClassModel();
         assertEquals(0, m.getAttributeModels().size());
-        
+
         m.addAttribute(new AttributeModel(new TypeModel(TYPE_NAME), ATTRIBUTE_NAME));
         assertEquals(1, m.getAttributeModels().size());
 
@@ -210,9 +209,9 @@ public class ClassModelTest {
         cell2.add(p2);
         cell3.add(p3);
 
-        DefaultEdge edge = new DefaultEdge();
-        DefaultEdge edge2 = new DefaultEdge();
-        DefaultEdge edge3 = new DefaultEdge();
+        ClassModelRelation edge = new ClassModelRelation(new RelationModel(RelationType.RELATION));
+        ClassModelRelation edge2 = new ClassModelRelation(new RelationModel(RelationType.RELATION));
+        ClassModelRelation edge3 = new ClassModelRelation(new RelationModel(RelationType.RELATION));
         this.initEdge(edge, p1, p2);
         this.initEdge(edge2, p2, p3);
         this.initEdge(edge3, p3, p1);
@@ -222,21 +221,30 @@ public class ClassModelTest {
         cache.insert(edge3);
 
         Iterator<? extends IRelation> it = this.model.getRelatedClass().iterator();
-        IRelation r = it.next();
-        assertEquals(this.model, r.getStartingClass());
-        assertEquals(this.model2, r.getEndingClass());
-        assertEquals(Cardinality.ONE, r.getStartCardinality());
-        assertEquals(Cardinality.ONE, r.getEndCardinality());
-        assertEquals(RelationType.RELATION, r.getRelationType());
-
-        r = it.next();
-        assertEquals(this.model, r.getEndingClass());
-        assertEquals(this.model3, r.getStartingClass());
-        assertEquals(Cardinality.ONE, r.getStartCardinality());
-        assertEquals(Cardinality.ONE, r.getEndCardinality());
-        assertEquals(RelationType.RELATION, r.getRelationType());
+        boolean e1 = false;
+        boolean e3 = false;
+        for (int i = 0; i < 2; i++) {
+            IRelation r = it.next();
+            if (r.getStartingClass().equals(this.model)) {
+                e1 = true;
+                assertEquals(r.getStartingClass().getTypeName(), this.model, r.getStartingClass());
+                assertEquals(this.model2, r.getEndingClass());
+                assertEquals(Cardinality.ONE, r.getStartCardinality());
+                assertEquals(Cardinality.ONE, r.getEndCardinality());
+                assertEquals(RelationType.RELATION, r.getRelationType());
+            } else if (r.getStartingClass().equals(this.model3)) {
+                e3 = true;
+                assertEquals(this.model, r.getEndingClass());
+                assertEquals(this.model3, r.getStartingClass());
+                assertEquals(Cardinality.ONE, r.getStartCardinality());
+                assertEquals(Cardinality.ONE, r.getEndCardinality());
+                assertEquals(RelationType.RELATION, r.getRelationType());
+            }
+        }
 
         assertFalse("There is another relation which shouldn't be there!", it.hasNext());
+        assertTrue("edge 1 was not there!", e1);
+        assertTrue("edge 3 was not there!", e3);
     }
 
     private void initEdge(Edge edge, Port startPort, Port endPort) {
@@ -250,5 +258,4 @@ public class ClassModelTest {
         GraphConstants.setMoveable(edge.getAttributes(), true);
         GraphConstants.setDisconnectable(edge.getAttributes(), false);
     }
-
 }

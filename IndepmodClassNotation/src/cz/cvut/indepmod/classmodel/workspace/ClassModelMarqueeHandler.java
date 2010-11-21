@@ -1,6 +1,9 @@
 package cz.cvut.indepmod.classmodel.workspace;
 
 import cz.cvut.indepmod.classmodel.api.ToolChooserModel;
+import cz.cvut.indepmod.classmodel.api.model.RelationType;
+import cz.cvut.indepmod.classmodel.workspace.cell.ClassModelRelation;
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.RelationModel;
 import org.jgraph.graph.BasicMarqueeHandler;
 import org.jgraph.graph.DefaultEdge;
 import org.jgraph.graph.GraphConstants;
@@ -73,7 +76,7 @@ public class ClassModelMarqueeHandler extends BasicMarqueeHandler {
             this.printTempLine(Color.black, this.graph.getBackground());
 
             if (this.actualPort != null && !this.actualPort.equals(this.startingPort)) {
-                DefaultEdge edge = new DefaultEdge(); //TODO move this into ClassModelGraph and improve it!
+                ClassModelRelation edge = new ClassModelRelation(new RelationModel(RelationType.RELATION));
                 edge.setSource(this.startingPort.getCell());
                 edge.setTarget(this.actualPort.getCell());
 
