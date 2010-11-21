@@ -12,23 +12,16 @@ import org.jgraph.graph.DefaultPort;
  * Date: 12.11.2010
  * Time: 19:20:47
  * @author Lucky
+ *
+ * Model of the relation. Instance of this class is used as an User Object of
+ * the Edge (Edge in the JGraph...). Cell which owns this instance should
+ * set the pointer to itself - information about Classes and Cardinalities
+ * are gathered from the Edge...
  */
 public class RelationModel implements IRelation {
 
-//    private IClass sourceClass;
-//    private IClass targetClass;
     private RelationType type;
-//    private Cardinality sourceCardinality;
-//    private Cardinality targetCardinality;
     private DefaultEdge cell;
-
-//    public RelationModel(IClass sourceClass, IClass targetClass, RelationType type, Cardinality sourceCardinality, Cardinality targetCardinality) {
-//        this.sourceClass = sourceClass;
-//        this.targetClass = targetClass;
-//        this.type = type;
-//        this.sourceCardinality = sourceCardinality;
-//        this.targetCardinality = targetCardinality;
-//    }
     public RelationModel(RelationType type) {
         this.type = type;
         this.cell = null;
@@ -40,7 +33,6 @@ public class RelationModel implements IRelation {
 
     @Override
     public IClass getStartingClass() {
-//        return this.sourceClass;
         this.verifyCell();
 
         DefaultPort p = (DefaultPort) this.cell.getSource();
@@ -52,7 +44,6 @@ public class RelationModel implements IRelation {
 
     @Override
     public IClass getEndingClass() {
-//        return this.targetClass;
         this.verifyCell();
 
         DefaultPort p = (DefaultPort) this.cell.getTarget();
@@ -64,13 +55,11 @@ public class RelationModel implements IRelation {
 
     @Override
     public Cardinality getStartCardinality() {
-//        return this.sourceCardinality;
         return Cardinality.ONE;
     }
 
     @Override
     public Cardinality getEndCardinality() {
-//        return this.targetCardinality;
         return Cardinality.ONE;
     }
 
@@ -83,8 +72,6 @@ public class RelationModel implements IRelation {
     public String toString() {
         return "";
     }
-
-
 
     private void verifyCell() {
         if (this.cell == null) {

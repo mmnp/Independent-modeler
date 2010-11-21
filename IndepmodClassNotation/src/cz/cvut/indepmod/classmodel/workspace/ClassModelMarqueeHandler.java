@@ -1,12 +1,8 @@
 package cz.cvut.indepmod.classmodel.workspace;
 
 import cz.cvut.indepmod.classmodel.api.ToolChooserModel;
-import cz.cvut.indepmod.classmodel.api.model.RelationType;
-import cz.cvut.indepmod.classmodel.workspace.cell.ClassModelRelation;
-import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.RelationModel;
+import cz.cvut.indepmod.classmodel.workspace.cell.ClassModelCellFactory;
 import org.jgraph.graph.BasicMarqueeHandler;
-import org.jgraph.graph.DefaultEdge;
-import org.jgraph.graph.GraphConstants;
 import org.jgraph.graph.PortView;
 
 import javax.swing.*;
@@ -14,6 +10,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.util.logging.Logger;
+import org.jgraph.graph.DefaultEdge;
 
 public class ClassModelMarqueeHandler extends BasicMarqueeHandler {
 
@@ -76,16 +73,9 @@ public class ClassModelMarqueeHandler extends BasicMarqueeHandler {
             this.printTempLine(Color.black, this.graph.getBackground());
 
             if (this.actualPort != null && !this.actualPort.equals(this.startingPort)) {
-                ClassModelRelation edge = new ClassModelRelation(new RelationModel(RelationType.RELATION));
+                DefaultEdge edge = ClassModelCellFactory.createEdge(this.selectedToolModel.getSelectedTool());
                 edge.setSource(this.startingPort.getCell());
                 edge.setTarget(this.actualPort.getCell());
-
-                GraphConstants.setEndFill(edge.getAttributes(), true);
-                GraphConstants.setLineStyle(edge.getAttributes(), GraphConstants.STYLE_ORTHOGONAL);
-                GraphConstants.setLabelAlongEdge(edge.getAttributes(), false);
-                GraphConstants.setEditable(edge.getAttributes(), true);
-                GraphConstants.setMoveable(edge.getAttributes(), true);
-                GraphConstants.setDisconnectable(edge.getAttributes(), false);
 
                 this.graph.getGraphLayoutCache().insert(edge);
             }

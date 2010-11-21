@@ -8,9 +8,26 @@ package cz.cvut.indepmod.classmodel.api.model;
  * @author Lucky
  */
 public enum Cardinality {
-    
-    ZERO,
-    ZEROINFINITY,
-    ONEINFINITY,
-    ONE
+
+    ONEINFINITY {
+
+        @Override
+        public String toString() {
+            return "1..*";
+        }
+    },
+    ONE {
+
+        @Override
+        public String toString() {
+            return "1";
+        }
+    },
+    ZEROINFINITY {
+
+        @Override
+        public String toString() {
+            return "*";
+        }
+    },
 }
