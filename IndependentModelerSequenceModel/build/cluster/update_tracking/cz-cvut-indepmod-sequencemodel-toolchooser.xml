@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module codename="cz.cvut.indepmod.sequencemodel.toolchooser">
+    <module_version install_time="1290357795310" last="true" origin="installer" specification_version="1.0">
+        <file crc="1309754272" name="config/Modules/cz-cvut-indepmod-sequencemodel-toolchooser.xml"/>
+        <file crc="2038852452" name="modules/cz-cvut-indepmod-sequencemodel-toolchooser.jar"/>
+    </module_version>
+</module>

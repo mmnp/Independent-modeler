@@ -1,0 +1,16 @@
+||:cz.cvut.indepmod.sequencemodel.test.testEditorTopComponent
+javax.swing.GroupLayout$SequentialGroup
+javax.swing.JScrollPane
+org.openide.util.NbBundle
+javax.swing.GroupLayout
+org.jgraph.JGraph
+javax.swing.GroupLayout$ParallelGroup
+java.lang.Class
+javax.swing.GroupLayout$Alignment
+org.openide.windows.WindowManager
+javax.swing.JEditorPane
+java.util.logging.Logger
+org.openide.windows.TopComponent
+java.util.Properties
+javax.swing.GroupLayout$Group
+cz.cvut.indepmod.sequencemodel.test.testEditorTopComponent

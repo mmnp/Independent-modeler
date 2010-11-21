@@ -1,0 +1,5 @@
+C:\Program Files\NetBeans 6.9.1\platform=1285251392658
+C:\Users\mafiacomp\Documents\NetBeansProjects\SequenceModel\IndependentModelerSequenceModel\build\cluster=1290357795442
+C:\Program Files\NetBeans 6.9.1\platform=1285251392658
+C:\Users\mafiacomp\Documents\NetBeansProjects\SequenceModel\IndependentModelerSequenceModel\build\testuserdir=1290357795442
+crc=7

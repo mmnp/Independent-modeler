@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN"
+                            "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="xml">
+        <folder name="entities">
+            <folder name="cz_cvut_indepmod_sequencemodel_test">
+                <file name="testEditor" url="nbres:/org/netbeans/modules/settings/resources/properties-1_0.dtd">
+                    <!--cz.cvut.indepmod.sequencemodel.test.testEditorTopComponent-->
+                    <attr name="hint.originalPublicID" stringvalue="-//cz.cvut.indepmod.sequencemodel.test//testEditor//EN"/>
+                </file>
+            </folder>
+        </folder>
+        <folder name="memory">
+            <folder name="cz">
+                <folder name="cvut">
+                    <folder name="indepmod">
+                        <folder name="sequencemodel">
+                            <folder name="test">
+                                <file name="testEditorTopComponent">
+                                    <!--cz.cvut.indepmod.sequencemodel.test.testEditorTopComponent-->
+                                    <attr name="settings.providerPath" stringvalue="xml/lookups//cz_cvut_indepmod_sequencemodel_test/testEditor.instance"/>
+                                </file>
+                            </folder>
+                        </folder>
+                    </folder>
+                </folder>
+            </folder>
+        </folder>
+        <folder name="lookups">
+            <folder name="cz_cvut_indepmod_sequencemodel_test">
+                <file name="testEditor.instance">
+                    <!--cz.cvut.indepmod.sequencemodel.test.testEditorTopComponent-->
+                    <attr
+                        methodvalue="org.netbeans.api.settings.Factory.create" name="instanceCreate"/>
+                    <attr
+                        methodvalue="org.netbeans.api.settings.Factory.properties" name="settings.convertor"/>
+                    <attr name="settings.instanceClass" stringvalue="cz.cvut.indepmod.sequencemodel.test.testEditorTopComponent"/>
+                    <attr name="settings.instanceOf" stringvalue="cz.cvut.indepmod.sequencemodel.test.testEditorTopComponent"/>
+                    <attr boolvalue="true" name="xmlproperties.preventStoring"/>
+                </file>
+            </folder>
+        </folder>
+    </folder>
+</filesystem>

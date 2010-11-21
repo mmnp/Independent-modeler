@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module codename="cz.cvut.indepmod.sequencemodel.jgraph">
+    <module_version install_time="1290357791774" last="true" origin="installer" specification_version="1.0">
+        <file crc="612980444" name="config/Modules/cz-cvut-indepmod-sequencemodel-jgraph.xml"/>
+        <file crc="1148930897" name="modules/cz-cvut-indepmod-sequencemodel-jgraph.jar"/>
+        <file crc="2736305738" name="modules/ext/jgraph.jar"/>
+    </module_version>
+</module>

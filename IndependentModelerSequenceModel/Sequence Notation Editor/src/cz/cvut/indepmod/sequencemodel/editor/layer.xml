@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Actions">
+        <folder name="Window">
+            <file name="cz-cvut-indepmod-sequencemodel-editor-EditorAction.instance">
+                <attr name="component" methodvalue="cz.cvut.indepmod.sequencemodel.editor.SequenceModelWorkspace.findInstance"/>
+                <attr name="displayName" bundlevalue="cz.cvut.indepmod.sequencemodel.editor.Bundle#CTL_Editor"/>
+                <attr name="instanceCreate" methodvalue="org.openide.windows.TopComponent.openAction"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Menu">
+        <folder name="Window">
+            <file name="EditorAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Window/cz-cvut-indepmod-sequencemodel-editor-EditorAction.instance"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Windows2">
+        <folder name="Components">
+            <file name="EditorTopComponent.settings" url="EditorTopComponentSettings.xml"/>
+        </folder>
+        <folder name="Modes">
+            <folder name="editor">
+                <file name="EditorTopComponent.wstcref" url="EditorTopComponentWstcref.xml"/>
+            </folder>
+        </folder>
+    </folder>
+</filesystem>
