@@ -87,6 +87,8 @@ public class RelationModel implements IRelation {
             res = (Cardinality) cardinalities[index];
         } catch (ClassCastException ex) {
             throw new ClassCastException("There is not Cardinality instance in the Extra Label of the edge!");
+        } catch (NullPointerException ex) {
+            throw new NullPointerException("There is no Extra Label in the edge!");
         }
 
         return res;
