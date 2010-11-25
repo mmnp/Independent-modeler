@@ -1,5 +1,6 @@
 package cz.cvut.indepmod.classmodel.persistence.xml;
 
+import cz.cvut.indepmod.classmodel.persistence.xml.delegate.AnotationModelPersistenceDelegate;
 import cz.cvut.indepmod.classmodel.persistence.xml.delegate.AttributeModelPersistenceDelegate;
 import cz.cvut.indepmod.classmodel.persistence.xml.delegate.ClassModelPersistenceDelegate;
 import cz.cvut.indepmod.classmodel.persistence.xml.delegate.MethodModelPersistenceDelegate;
@@ -9,6 +10,7 @@ import cz.cvut.indepmod.classmodel.workspace.ClassModelGraphModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.ClassModelClassCell;
 import cz.cvut.indepmod.classmodel.workspace.cell.ClassModelRelation;
 import cz.cvut.indepmod.classmodel.workspace.cell.ClassModelVertexView;
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.AnotationModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.AttributeModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.ClassModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.MethodModel;
@@ -178,6 +180,7 @@ public class ClassModelXMLCoder {
         encoder.setPersistenceDelegate(MethodModel.class, new MethodModelPersistenceDelegate());
         encoder.setPersistenceDelegate(TypeModel.class, new TypeModelPersistenceDelegate());
         encoder.setPersistenceDelegate(RelationModel.class, new RelationModelPersistenceDelegate());
+        encoder.setPersistenceDelegate(AnotationModel.class, new AnotationModelPersistenceDelegate());
 
         //GRAPH VIEWS===========================================================
 //        encoder.setPersistenceDelegate(AbstractCellView.class,

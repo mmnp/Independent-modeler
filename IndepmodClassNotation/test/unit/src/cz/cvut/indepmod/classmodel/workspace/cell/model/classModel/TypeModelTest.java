@@ -5,10 +5,9 @@
 
 package cz.cvut.indepmod.classmodel.workspace.cell.model.classModel;
 
+import cz.cvut.indepmod.classmodel.Common;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -18,14 +17,12 @@ import static org.junit.Assert.*;
  */
 public class TypeModelTest {
 
-    public static final String TYPE_NAME = "type";
-
     private TypeModel model;
 
 
     @Before
     public void setUp() {
-        this.model = new TypeModel(TYPE_NAME);
+        this.model = new TypeModel(Common.TYPE_NAME);
     }
 
     @After
@@ -37,7 +34,7 @@ public class TypeModelTest {
      */
     @Test
     public void testGetTypeName() {
-        assertEquals(TYPE_NAME, this.model.getTypeName());
+        assertEquals(Common.TYPE_NAME, this.model.getTypeName());
     }
 
     /**
@@ -55,7 +52,7 @@ public class TypeModelTest {
      */
     @Test
     public void testToString() {
-        assertEquals(TYPE_NAME, this.model.toString());
+        assertEquals(Common.TYPE_NAME, this.model.toString());
     }
 
 }

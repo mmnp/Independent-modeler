@@ -1,5 +1,6 @@
 package cz.cvut.indepmod.classmodel.persistence.xml;
 
+import cz.cvut.indepmod.classmodel.Common;
 import cz.cvut.indepmod.classmodel.api.model.IClass;
 import java.util.Collection;
 import org.jgraph.graph.Edge;
@@ -33,8 +34,6 @@ import static org.junit.Assert.*;
  */
 public class ClassModelXMLCoderTest {
 
-    public static final String CLASS_NAME = "TestClass";
-    public static final String CLASS_NAME2 = "CamelCaseXXX";
     public static final String FILE_NAME = "TestClass";
 
     private ClassModelGraph graph;
@@ -56,8 +55,8 @@ public class ClassModelXMLCoderTest {
 
     @Test
     public void testSimpleEncodeDecode() throws FileNotFoundException {
-        ClassModel mod1 = new ClassModel(CLASS_NAME);
-        ClassModel mod2 = new ClassModel(CLASS_NAME2);
+        ClassModel mod1 = new ClassModel(Common.CLASS_NAME);
+        ClassModel mod2 = new ClassModel(Common.CLASS_NAME2);
         ClassModelClassCell cell1 = new ClassModelClassCell(mod1);
         ClassModelClassCell cell2 = new ClassModelClassCell(mod2);
         GraphConstants.setBounds(cell1.getAttributes(), new Rectangle.Double(10, 10, 100, 60));
@@ -83,11 +82,11 @@ public class ClassModelXMLCoderTest {
         boolean isThereClass1 = false;
         boolean isThereClass2 = false;
         for (TypeModel m : this.graph.getAllTypes()) {
-            if (m.getTypeName().equals(CLASS_NAME)) {
+            if (m.getTypeName().equals(Common.CLASS_NAME)) {
                 isThereClass1 = true;
             }
 
-            if (m.getTypeName().equals(CLASS_NAME2)) {
+            if (m.getTypeName().equals(Common.CLASS_NAME2)) {
                 isThereClass2 = true;
             }
         }
@@ -96,14 +95,14 @@ public class ClassModelXMLCoderTest {
 
         DefaultGraphCell root = (DefaultGraphCell)this.graph.getRoots()[0];
         ClassModel model = (ClassModel)root.getUserObject();
-        assertEquals(CLASS_NAME, model.getTypeName());
+        assertEquals(Common.CLASS_NAME, model.getTypeName());
         assertTrue(model.getAttributeModels().isEmpty());
         assertTrue(model.getMethodModels().isEmpty());
 
         root = (DefaultGraphCell)this.graph.getRoots()[1];
         model = (ClassModel)root.getUserObject();
 
-        assertEquals(CLASS_NAME2, model.getTypeName());
+        assertEquals(Common.CLASS_NAME2, model.getTypeName());
         assertTrue(model.getAttributeModels().isEmpty());
         assertTrue(model.getMethodModels().isEmpty());
 

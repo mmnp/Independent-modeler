@@ -33,4 +33,10 @@ public interface IClass extends IType {
      * @return related method set
      */
     public Collection<? extends IRelation> getRelatedClass();
+
+    /**
+     * Returns a collection of anotations
+     * @return a collection of anotations
+     */
+    public Set<? extends IAnotation> getAnotations();
 }

@@ -5,10 +5,9 @@
 
 package cz.cvut.indepmod.classmodel.workspace.cell.model.classModel;
 
+import cz.cvut.indepmod.classmodel.Common;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -17,14 +16,11 @@ import static org.junit.Assert.*;
  * @author Lucky
  */
 public class AttributeModelTest {
-
-    public static final String ATTR_NAME = "attribute";
-    public static final String TYPE_NAME = "type";
     private AttributeModel model;
 
     @Before
     public void setUp() {
-        this.model = new AttributeModel(new TypeModel(TYPE_NAME), ATTR_NAME);
+        this.model = new AttributeModel(new TypeModel(Common.TYPE_NAME), Common.ATTRIBUTE_NAME);
     }
 
     @After
@@ -37,7 +33,7 @@ public class AttributeModelTest {
     @Test
     public void testGetType() {
         assertNotNull(model.getType());
-        assertEquals(TYPE_NAME, this.model.getType().getTypeName());
+        assertEquals(Common.TYPE_NAME, this.model.getType().getTypeName());
     }
 
     /**
@@ -46,7 +42,7 @@ public class AttributeModelTest {
     @Test
     public void testGetName() {
         assertNotNull(model.getName());
-        assertEquals(ATTR_NAME, this.model.getName());
+        assertEquals(Common.ATTRIBUTE_NAME, this.model.getName());
     }
 
     /**
@@ -55,7 +51,7 @@ public class AttributeModelTest {
     @Test
     public void testToString() {
         assertNotNull(model.toString());
-        assertEquals(ATTR_NAME +" : "+ TYPE_NAME, this.model.toString());
+        assertEquals(Common.ATTRIBUTE_NAME +" : "+ Common.TYPE_NAME, this.model.toString());
     }
 
 }

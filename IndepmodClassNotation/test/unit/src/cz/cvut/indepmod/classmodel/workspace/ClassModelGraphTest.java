@@ -5,6 +5,7 @@
 
 package cz.cvut.indepmod.classmodel.workspace;
 
+import cz.cvut.indepmod.classmodel.Common;
 import java.util.Iterator;
 import java.util.Collection;
 import java.awt.Rectangle;
@@ -33,7 +34,7 @@ public class ClassModelGraphTest {
         this.graph = new ClassModelGraph(new HashMap<String, ClassModelAbstractAction>(), new ToolChooserModel());
 
         DefaultGraphCell cell = new DefaultGraphCell();
-        cell.setUserObject(new ClassModel("Test"));
+        cell.setUserObject(new ClassModel(Common.CLASS_NAME));
         GraphConstants.setBounds(cell.getAttributes(), new Rectangle.Double(10, 10, 100, 60));
         this.graph.getGraphLayoutCache().insert(cell);
     }
@@ -55,7 +56,7 @@ public class ClassModelGraphTest {
         while (it.hasNext()) {
             TypeModel model = it.next();
             assertNotNull(model);
-            if (model.toString().equals("Test") && model.getTypeName().equals("Test")) {
+            if (model.toString().equals(Common.CLASS_NAME) && model.getTypeName().equals(Common.CLASS_NAME)) {
                 isThere = true;
             }
         }
@@ -72,7 +73,7 @@ public class ClassModelGraphTest {
         while (it.hasNext()) {
             ClassModel model = it.next();
             assertNotNull(model);
-            if (model.toString().equals("Test") && model.getTypeName().equals("Test")) {
+            if (model.toString().equals(Common.CLASS_NAME) && model.getTypeName().equals(Common.CLASS_NAME)) {
                 isThere = true;
             }
         }

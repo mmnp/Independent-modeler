@@ -1,5 +1,6 @@
 package cz.cvut.indepmod.classmodel.persistence.xml.delegate;
 
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.AnotationModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.AttributeModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.ClassModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.MethodModel;
@@ -25,6 +26,7 @@ public class ClassModelPersistenceDelegate extends DefaultPersistenceDelegate {
         ClassModel cm = (ClassModel)oldInstance;
         Set<MethodModel> methods = cm.getMethodModels();
         Set<AttributeModel> attributes = cm.getAttributeModels();
+        Set<AnotationModel> anotations = cm.getAnotations();
 
         for (MethodModel m : methods) {
             out.writeStatement(new Statement(oldInstance, "addMethod", new Object[] {m}));
@@ -32,6 +34,10 @@ public class ClassModelPersistenceDelegate extends DefaultPersistenceDelegate {
 
         for (AttributeModel a : attributes) {
             out.writeStatement(new Statement(oldInstance, "addAttribute", new Object[] {a}));
+        }
+
+        for (AnotationModel a : anotations) {
+            out.writeStatement(new Statement(oldInstance, "addAnotation", new Object[] {a}));
         }
     }
 
@@ -42,7 +48,7 @@ public class ClassModelPersistenceDelegate extends DefaultPersistenceDelegate {
                 oldInstance,
                 oldInstance.getClass(),
                 "new",
-                new Object[]{cm.getTypeName(), null, null});
+                new Object[]{cm.getTypeName(), null, null, null});
     }
 
 

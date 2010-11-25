@@ -1,5 +1,6 @@
 package cz.cvut.indepmod.classmodel.workspace.cell.components;
 
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.AnotationModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.AttributeModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.ClassModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.MethodModel;
@@ -35,16 +36,18 @@ public class ClassComponent extends JComponent {
         int namePartHeight = this.getNamePartHeight();
         int attributePartHeight = this.getAttributePartHeight();
         int methodPartHeight = this.getMethodPartHeight();
+        int anotationPartHeight = this.getAnotationPartHeight();
 
         this.paintClassPart(g.create(0, 0, d.width, namePartHeight));
-        this.paintAttributePart(g.create(0, namePartHeight, d.width, attributePartHeight));
-        this.paintMethodPart(g.create(0, namePartHeight + attributePartHeight, d.width, methodPartHeight));
+        this.paintAnotationPart(g.create(0, namePartHeight, d.width, anotationPartHeight));
+        this.paintAttributePart(g.create(0, namePartHeight + anotationPartHeight, d.width, attributePartHeight));
+        this.paintMethodPart(g.create(0, namePartHeight + anotationPartHeight + attributePartHeight, d.width, methodPartHeight));
     }
 
     @Override
     public Dimension getPreferredSize() {
         int width = 100;
-        int height = this.getNamePartHeight() + this.getMethodPartHeight() + this.getAttributePartHeight();
+        int height = this.getNamePartHeight() + this.getAnotationPartHeight() + this.getMethodPartHeight() + this.getAttributePartHeight();
         return new Dimension(width, height);
     }
 
@@ -59,6 +62,23 @@ public class ClassComponent extends JComponent {
         g.setFont(CLASS_NAME_FONT);
         Rectangle2D rect = g.getFontMetrics().getStringBounds(className, g);
         g.drawString(className, (int) ((width - rect.getWidth()) / 2), height - 5);
+    }
+
+    private void paintAnotationPart(Graphics g) {
+        int width = getSize().width;
+        int height = this.getAttributePartHeight();
+        Set<AnotationModel> anots = this.model.getAnotations();
+
+        g.setColor(Color.BLACK);
+        g.drawRect(0, 0, width - 1, height - 1);
+
+        g.setFont(CLASS_NAME_FONT);
+
+        int stage = 1;
+        for (AnotationModel anot : anots ) {
+            g.drawString(anot.toString(), 5, stage * 20 - 5);
+            stage++;
+        }
     }
 
     private void paintAttributePart(Graphics g) {
@@ -106,5 +126,9 @@ public class ClassComponent extends JComponent {
 
     private int getAttributePartHeight() {
         return 3 + this.model.getAttributeModels().size() * 20;
+    }
+
+    private int getAnotationPartHeight() {
+        return 3 + this.model.getAnotations().size() * 20;
     }
 }

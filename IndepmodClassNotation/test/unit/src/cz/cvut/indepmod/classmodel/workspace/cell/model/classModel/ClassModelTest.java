@@ -1,12 +1,14 @@
 package cz.cvut.indepmod.classmodel.workspace.cell.model.classModel;
 
+import cz.cvut.indepmod.classmodel.Common;
+import org.jgraph.graph.DefaultEdge;
+import cz.cvut.indepmod.classmodel.api.ToolChooserModel.Tool;
 import cz.cvut.indepmod.classmodel.api.model.Cardinality;
 import cz.cvut.indepmod.classmodel.api.model.IRelation;
 import cz.cvut.indepmod.classmodel.api.model.RelationType;
+import cz.cvut.indepmod.classmodel.workspace.cell.ClassModelCellFactory;
 import org.jgraph.graph.Edge;
-import org.jgraph.graph.GraphConstants;
 import cz.cvut.indepmod.classmodel.workspace.cell.ClassModelClassCell;
-import cz.cvut.indepmod.classmodel.workspace.cell.ClassModelRelation;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -25,15 +27,6 @@ import static org.junit.Assert.*;
  */
 public class ClassModelTest {
 
-    public static final String CLASS_NAME = "MyClass1";
-    public static final String CLASS_NAME2 = "MyClass2";
-    public static final String CLASS_NAME3 = "MyClass3";
-    public static final String TYPE_NAME = "testType";
-    public static final String ATTRIBUTE_NAME = "myAttr";
-    public static final String TYPE_NAME2 = "myOwnType";
-    public static final String ATTRIBUTE_NAME2 = "testAttribute";
-    public static final String METHOD_NAME = "bar";
-    public static final String METHOD_NAME2 = "foo";
     private ClassModel model;
     private ClassModel model2;
     private ClassModel model3;
@@ -41,17 +34,22 @@ public class ClassModelTest {
     @Before
     public void setUp() {
         Set<AttributeModel> attributes = new HashSet<AttributeModel>();
-        attributes.add(new AttributeModel(new TypeModel(TYPE_NAME), ATTRIBUTE_NAME));
-        attributes.add(new AttributeModel(new TypeModel(TYPE_NAME2), ATTRIBUTE_NAME2));
-        attributes.add(new AttributeModel(new TypeModel(TYPE_NAME), ATTRIBUTE_NAME2));
+        attributes.add(new AttributeModel(new TypeModel(Common.TYPE_NAME), Common.ATTRIBUTE_NAME));
+        attributes.add(new AttributeModel(new TypeModel(Common.TYPE_NAME2), Common.ATTRIBUTE_NAME2));
+        attributes.add(new AttributeModel(new TypeModel(Common.TYPE_NAME), Common.ATTRIBUTE_NAME2));
 
         Set<MethodModel> methods = new HashSet<MethodModel>();
-        methods.add(new MethodModel(new TypeModel(TYPE_NAME), METHOD_NAME, null));
-        methods.add(new MethodModel(new TypeModel(TYPE_NAME2), METHOD_NAME2, null));
+        methods.add(new MethodModel(new TypeModel(Common.TYPE_NAME), Common.METHOD_NAME, null));
+        methods.add(new MethodModel(new TypeModel(Common.TYPE_NAME2), Common.METHOD_NAME2, null));
 
-        this.model = new ClassModel(CLASS_NAME, methods, attributes);
-        this.model2 = new ClassModel(CLASS_NAME2, methods, attributes);
-        this.model3 = new ClassModel(CLASS_NAME3, methods, attributes);
+        Set<AnotationModel> anotations = new HashSet<AnotationModel>();
+        anotations.add(new AnotationModel(Common.ANOT1));
+        anotations.add(new AnotationModel(Common.ANOT2));
+        anotations.add(new AnotationModel(Common.ANOT3));
+
+        this.model = new ClassModel(Common.CLASS_NAME, methods, attributes, anotations);
+        this.model2 = new ClassModel(Common.CLASS_NAME2, methods, attributes, anotations);
+        this.model3 = new ClassModel(Common.CLASS_NAME3, methods, attributes, anotations);
     }
 
     @After
@@ -68,33 +66,27 @@ public class ClassModelTest {
         assertNotNull(m.getTypeName());
         assertNotNull(m.toString());
 
-        m = new ClassModel(CLASS_NAME);
+        m = new ClassModel(Common.CLASS_NAME);
         assertTrue(m.getAttributeModels().isEmpty());
         assertTrue(m.getMethodModels().isEmpty());
         assertNotNull(m.getTypeName());
         assertNotNull(m.toString());
-        assertEquals(CLASS_NAME, m.getTypeName());
-        assertEquals(CLASS_NAME, m.toString());
+        assertEquals(Common.CLASS_NAME, m.getTypeName());
+        assertEquals(Common.CLASS_NAME, m.toString());
 
-
-        Set<AttributeModel> attributes = new HashSet<AttributeModel>();
-        attributes.add(new AttributeModel(new TypeModel(TYPE_NAME), ATTRIBUTE_NAME));
-        attributes.add(new AttributeModel(new TypeModel(TYPE_NAME2), ATTRIBUTE_NAME2));
-        attributes.add(new AttributeModel(new TypeModel(TYPE_NAME), ATTRIBUTE_NAME2));
-
-        Set<MethodModel> methods = new HashSet<MethodModel>();
-        methods.add(new MethodModel(new TypeModel(TYPE_NAME), METHOD_NAME, null));
-        methods.add(new MethodModel(new TypeModel(TYPE_NAME2), METHOD_NAME2, null));
-
-        m = new ClassModel(CLASS_NAME, methods, attributes);
+        m = new ClassModel(Common.CLASS_NAME, Common.getMethods(), Common.getAttributes(), Common.getAnotations());
         assertNotNull(m.getAttributeModels());
         assertNotNull(m.getMethodModels());
         assertNotNull(m.toString());
         assertNotNull(m.getTypeName());
+        assertNotNull(m.getAnotations());
         assertEquals(3, m.getAttributeModels().size());
         assertEquals(2, m.getMethodModels().size());
-        assertEquals(CLASS_NAME, m.getTypeName());
-        assertEquals(CLASS_NAME, m.toString());
+        assertEquals(3, m.getAnotations().size());
+        assertEquals(Common.CLASS_NAME, m.getTypeName());
+        assertEquals(Common.CLASS_NAME, m.toString());
+
+        this.doAnotationTest(m);
     }
 
     /**
@@ -123,6 +115,13 @@ public class ClassModelTest {
         assertEquals(3, model.getAttributeModels().size());
     }
 
+    @Test
+    public void testGetAnotationModels() {
+        assertNotNull(model.getAnotations());
+        assertEquals(3, model.getAnotations().size());
+        this.doAnotationTest(model);
+    }
+
     /**
      * Test of addAttribute method, of class ClassModel.
      */
@@ -131,12 +130,12 @@ public class ClassModelTest {
         ClassModel m = new ClassModel();
         assertEquals(0, m.getAttributeModels().size());
 
-        m.addAttribute(new AttributeModel(new TypeModel(TYPE_NAME), ATTRIBUTE_NAME));
+        m.addAttribute(new AttributeModel(new TypeModel(Common.TYPE_NAME), Common.ATTRIBUTE_NAME));
         assertEquals(1, m.getAttributeModels().size());
 
         AttributeModel a = m.getAttributeModels().iterator().next();
-        assertEquals(TYPE_NAME, a.getType().getTypeName());
-        assertEquals(ATTRIBUTE_NAME, a.getName());
+        assertEquals(Common.TYPE_NAME, a.getType().getTypeName());
+        assertEquals(Common.ATTRIBUTE_NAME, a.getName());
     }
 
     /**
@@ -147,7 +146,7 @@ public class ClassModelTest {
         ClassModel m = new ClassModel();
         assertEquals(0, m.getAttributeModels().size());
 
-        m.addAttribute(new AttributeModel(new TypeModel(TYPE_NAME), ATTRIBUTE_NAME));
+        m.addAttribute(new AttributeModel(new TypeModel(Common.TYPE_NAME), Common.ATTRIBUTE_NAME));
         assertEquals(1, m.getAttributeModels().size());
 
         m.removeAttribute(m.getAttributeModels().iterator().next());
@@ -159,14 +158,14 @@ public class ClassModelTest {
      */
     @Test
     public void testRemoveMethod() {
-        ClassModel m = new ClassModel(CLASS_NAME);
+        ClassModel m = new ClassModel(Common.CLASS_NAME);
 
         assertEquals(0, m.getMethodModels().size());
 
-        m.addMethod(new MethodModel(new TypeModel(TYPE_NAME), METHOD_NAME, null));
+        m.addMethod(new MethodModel(new TypeModel(Common.TYPE_NAME), Common.METHOD_NAME, null));
         assertEquals(1, m.getMethodModels().size());
 
-        m.addMethod(new MethodModel(new TypeModel(TYPE_NAME2), METHOD_NAME2, null));
+        m.addMethod(new MethodModel(new TypeModel(Common.TYPE_NAME2), Common.METHOD_NAME2, null));
         assertEquals(2, m.getMethodModels().size());
 
         m.removeMethod(m.getMethodModels().iterator().next());
@@ -181,15 +180,58 @@ public class ClassModelTest {
      */
     @Test
     public void testAddMethod() {
-        ClassModel m = new ClassModel(CLASS_NAME);
+        ClassModel m = new ClassModel(Common.CLASS_NAME);
 
         assertEquals(0, m.getMethodModels().size());
 
-        m.addMethod(new MethodModel(new TypeModel(TYPE_NAME), METHOD_NAME, null));
+        m.addMethod(new MethodModel(new TypeModel(Common.TYPE_NAME), Common.METHOD_NAME, null));
         assertEquals(1, m.getMethodModels().size());
 
-        m.addMethod(new MethodModel(new TypeModel(TYPE_NAME2), METHOD_NAME2, null));
+        m.addMethod(new MethodModel(new TypeModel(Common.TYPE_NAME2), Common.METHOD_NAME2, null));
         assertEquals(2, m.getMethodModels().size());
+    }
+
+    @Test
+    public void testAddAndRemoveAnotation() {
+        ClassModel m = new ClassModel(Common.CLASS_NAME);
+
+        AnotationModel anotMod1 = new AnotationModel(Common.ANOT1);
+        AnotationModel anotMod2 = new AnotationModel(Common.ANOT2);
+        AnotationModel anotMod3 = new AnotationModel(Common.ANOT3);
+
+        assertEquals(0, m.getAnotations().size());
+
+        m.addAnotation(null);
+        assertEquals(0, m.getAnotations().size());
+
+        m.addAnotation(anotMod1);
+        assertEquals(1, m.getAnotations().size());
+
+        m.addAnotation(anotMod2);
+        assertEquals(2, m.getAnotations().size());
+
+        m.addAnotation(anotMod2);
+        assertEquals(2, m.getAnotations().size());
+
+        m.addAnotation(anotMod3);
+        assertEquals(3, m.getAnotations().size());
+
+        m.addAnotation(anotMod3);
+        assertEquals(3, m.getAnotations().size());
+
+        this.doAnotationTest(m);
+
+        m.removeAnotation(new AnotationModel("tralala"));
+        assertEquals(3, m.getAnotations().size());
+
+        m.removeAnotation(anotMod2);
+        assertEquals(2, m.getAnotations().size());
+
+        m.removeAnotation(anotMod3);
+        assertEquals(1, m.getAnotations().size());
+
+        m.removeAnotation(anotMod1);
+        assertEquals(0, m.getAnotations().size());
     }
 
     @Test
@@ -209,9 +251,9 @@ public class ClassModelTest {
         cell2.add(p2);
         cell3.add(p3);
 
-        ClassModelRelation edge = new ClassModelRelation(new RelationModel(RelationType.RELATION));
-        ClassModelRelation edge2 = new ClassModelRelation(new RelationModel(RelationType.RELATION));
-        ClassModelRelation edge3 = new ClassModelRelation(new RelationModel(RelationType.RELATION));
+        DefaultEdge edge = ClassModelCellFactory.createEdge(Tool.TOOL_ADD_RELATION);
+        DefaultEdge edge2 = ClassModelCellFactory.createEdge(Tool.TOOL_ADD_RELATION);
+        DefaultEdge edge3 = ClassModelCellFactory.createEdge(Tool.TOOL_ADD_RELATION);
         this.initEdge(edge, p1, p2);
         this.initEdge(edge2, p2, p3);
         this.initEdge(edge3, p3, p1);
@@ -250,12 +292,23 @@ public class ClassModelTest {
     private void initEdge(Edge edge, Port startPort, Port endPort) {
         edge.setSource(startPort);
         edge.setTarget(endPort);
+    }
 
-        GraphConstants.setEndFill(edge.getAttributes(), true);
-        GraphConstants.setLineStyle(edge.getAttributes(), GraphConstants.STYLE_ORTHOGONAL);
-        GraphConstants.setLabelAlongEdge(edge.getAttributes(), false);
-        GraphConstants.setEditable(edge.getAttributes(), true);
-        GraphConstants.setMoveable(edge.getAttributes(), true);
-        GraphConstants.setDisconnectable(edge.getAttributes(), false);
+
+    private void doAnotationTest(ClassModel cm) {
+        boolean isAnot1 = false, isAnot2 = false, isAnot3 = false;
+        for (AnotationModel anot : model.getAnotations()) {
+            if (anot.getName().equals(Common.ANOT1)) {
+                isAnot1 = true;
+            } else if (anot.getName().equals(Common.ANOT2)) {
+                isAnot2 = true;
+            } else if (anot.getName().equals(Common.ANOT3)) {
+                isAnot3 = true;
+            }
+        }
+
+        assertTrue(isAnot1);
+        assertTrue(isAnot2);
+        assertTrue(isAnot3);
     }
 }

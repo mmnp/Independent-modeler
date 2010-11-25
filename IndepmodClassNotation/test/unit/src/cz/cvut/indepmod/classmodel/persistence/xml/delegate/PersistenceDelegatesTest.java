@@ -1,5 +1,7 @@
 package cz.cvut.indepmod.classmodel.persistence.xml.delegate;
 
+import cz.cvut.indepmod.classmodel.Common;
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.AnotationModel;
 import java.util.Set;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.AttributeModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.ClassModel;
@@ -26,20 +28,12 @@ import static org.junit.Assert.*;
  */
 public class PersistenceDelegatesTest {
 
-    public static final String CLASS_NAME = "TestClass";
-    public static final String TYPE_NAME = "TYPETEST";
-    public static final String TYPE_NAME2 = "testType";
-    public static final String ATTRIBUTE_NAME = "AttrIbuteTeStTtTtttT";
-    public static final String ATTRIBUTE_NAME2 = "attrTest";
-    public static final String METHOD_NAME = "METHODnameTest";
-    public static final String METHOD_NAME2 = "methodTest";
-    public static final String FILE_NAME = "TestFile.xml";
     private File f;
     private XMLEncoder encoder;
 
     @Before
     public void setUp() {
-        this.f = new File(FILE_NAME);
+        this.f = new File(Common.FILE_NAME);
 
         try {
             this.encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(f)));
@@ -47,6 +41,7 @@ public class PersistenceDelegatesTest {
             this.encoder.setPersistenceDelegate(TypeModel.class, new TypeModelPersistenceDelegate());
             this.encoder.setPersistenceDelegate(AttributeModel.class, new AttributeModelPersistenceDelegate());
             this.encoder.setPersistenceDelegate(MethodModel.class, new MethodModelPersistenceDelegate());
+            this.encoder.setPersistenceDelegate(AnotationModel.class, new AnotationModelPersistenceDelegate());
             this.encoder.setExceptionListener(new ExceptionListener() {
 
                 @Override
@@ -69,7 +64,7 @@ public class PersistenceDelegatesTest {
      */
     @Test
     public void testTypeModelEncodeDecode() {
-        TypeModel tm = new TypeModel(TYPE_NAME);
+        TypeModel tm = new TypeModel(Common.TYPE_NAME);
         TypeModel dtm = null;
         
         this.encoder.writeObject(tm);
@@ -77,7 +72,7 @@ public class PersistenceDelegatesTest {
 
         dtm = (TypeModel) this.decode(this.f);
 
-        assertEquals(TYPE_NAME, dtm.getTypeName());
+        assertEquals(Common.TYPE_NAME, dtm.getTypeName());
     }
 
     /**
@@ -85,16 +80,7 @@ public class PersistenceDelegatesTest {
      */
     @Test
     public void testClassModelEncodeDecode() {
-        Set<AttributeModel> attributes = new HashSet<AttributeModel>();
-        attributes.add(new AttributeModel(new TypeModel(TYPE_NAME), ATTRIBUTE_NAME));
-        attributes.add(new AttributeModel(new TypeModel(TYPE_NAME2), ATTRIBUTE_NAME2));
-        attributes.add(new AttributeModel(new TypeModel(TYPE_NAME), ATTRIBUTE_NAME2));
-
-        Set<MethodModel> methods = new HashSet<MethodModel>();
-        methods.add(new MethodModel(new TypeModel(TYPE_NAME), METHOD_NAME, null));
-        methods.add(new MethodModel(new TypeModel(TYPE_NAME2), METHOD_NAME2, null));
-
-        ClassModel cm = new ClassModel(CLASS_NAME, methods, attributes);
+        ClassModel cm = new ClassModel(Common.CLASS_NAME, Common.getMethods(), Common.getAttributes(), Common.getAnotations());
         ClassModel dcm = null;
 
         this.encoder.writeObject(cm);
@@ -102,9 +88,10 @@ public class PersistenceDelegatesTest {
 
         dcm = (ClassModel) this.decode(this.f);
 
-        assertEquals(CLASS_NAME, dcm.getTypeName());
+        assertEquals(Common.CLASS_NAME, dcm.getTypeName());
         assertEquals(3, dcm.getAttributeModels().size());
         assertEquals(2, dcm.getMethodModels().size());
+        assertEquals(3, dcm.getAnotations().size());
     }
 
     @Test
@@ -112,15 +99,15 @@ public class PersistenceDelegatesTest {
      * This test tries to encode, decode and verify AttributeModel class
      */
     public void testAttributeModelEncodeDecode() {
-        AttributeModel am = new AttributeModel(new TypeModel(TYPE_NAME), ATTRIBUTE_NAME);
+        AttributeModel am = new AttributeModel(new TypeModel(Common.TYPE_NAME), Common.ATTRIBUTE_NAME);
         AttributeModel dam = null;
 
         this.encoder.writeObject(am);
         this.encoder.close();
 
         dam = (AttributeModel) this.decode(this.f);
-        assertEquals(TYPE_NAME, dam.getType().getTypeName());
-        assertEquals(ATTRIBUTE_NAME, dam.getName());
+        assertEquals(Common.TYPE_NAME, dam.getType().getTypeName());
+        assertEquals(Common.ATTRIBUTE_NAME, dam.getName());
     }
 
     @Test
@@ -129,12 +116,8 @@ public class PersistenceDelegatesTest {
      */
     public void testMethodModelEncodeDecode() {
         Set<AttributeModel> attributes = new HashSet<AttributeModel>();
-        attributes.add(new AttributeModel(new TypeModel(TYPE_NAME), ATTRIBUTE_NAME));
-        attributes.add(new AttributeModel(new TypeModel(TYPE_NAME2), ATTRIBUTE_NAME2));
-        attributes.add(new AttributeModel(new TypeModel(TYPE_NAME2), ATTRIBUTE_NAME2));
-        attributes.add(new AttributeModel(new TypeModel(TYPE_NAME2), ATTRIBUTE_NAME2));
 
-        MethodModel mm = new MethodModel(new TypeModel(TYPE_NAME), METHOD_NAME, attributes);
+        MethodModel mm = new MethodModel(new TypeModel(Common.TYPE_NAME), Common.METHOD_NAME, Common.getAttributes());
         MethodModel dmm = null;
 
         this.encoder.writeObject(mm);
@@ -142,9 +125,9 @@ public class PersistenceDelegatesTest {
 
         dmm = (MethodModel) this.decode(this.f);
 
-        assertEquals(TYPE_NAME, mm.getType().getTypeName());
-        assertEquals(METHOD_NAME, dmm.getName());
-        assertEquals(4, dmm.getAttributeModels().size());
+        assertEquals(Common.TYPE_NAME, mm.getType().getTypeName());
+        assertEquals(Common.METHOD_NAME, dmm.getName());
+        assertEquals(3, dmm.getAttributeModels().size());
     }
 
 

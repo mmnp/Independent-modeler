@@ -25,6 +25,7 @@ public class ClassModel extends TypeModel implements IClass {
     private static int counter = 0;
     private Set<MethodModel> methodModels;
     private Set<AttributeModel> attributeModels;
+    private Set<AnotationModel> anotationModels;
     private DefaultGraphCell cell;
 
     public ClassModel() {
@@ -37,7 +38,7 @@ public class ClassModel extends TypeModel implements IClass {
      * @param name name of new class
      */
     public ClassModel(String name) {
-        this(name, null, null);
+        this(name, null, null, null);
     }
 
     public ClassModel(ClassModel model) {
@@ -45,6 +46,7 @@ public class ClassModel extends TypeModel implements IClass {
 
         this.methodModels = new HashSet<MethodModel>(model.getMethodModels());
         this.attributeModels = new HashSet<AttributeModel>(model.getAttributeModels());
+        this.anotationModels = new HashSet<AnotationModel>(model.getAnotations());
         this.cell = model.cell;
     }
 
@@ -55,7 +57,7 @@ public class ClassModel extends TypeModel implements IClass {
      * @param methodModels    Set of methodModels of this class. This class will create new Set according to this.
      * @param attributeModels Set of attributeModels of this class. This class will create new Set according to this.
      */
-    public ClassModel(String name, Set<MethodModel> methodModels, Set<AttributeModel> attributeModels) {
+    public ClassModel(String name, Set<MethodModel> methodModels, Set<AttributeModel> attributeModels, Set<AnotationModel> anotationModels) {
         super(name);
 
         if (methodModels != null) {
@@ -68,6 +70,12 @@ public class ClassModel extends TypeModel implements IClass {
             this.attributeModels = new HashSet<AttributeModel>(attributeModels);
         } else {
             this.attributeModels = new HashSet<AttributeModel>();
+        }
+
+        if (anotationModels != null) {
+            this.anotationModels = new HashSet<AnotationModel>(anotationModels);
+        } else {
+            this.anotationModels = new HashSet<AnotationModel>();
         }
 
         this.cell = null;
@@ -104,14 +112,33 @@ public class ClassModel extends TypeModel implements IClass {
         return new HashSet<AttributeModel>(this.attributeModels);
     }
 
+    @Override
+    public Set<AnotationModel> getAnotations() {
+        return new HashSet<AnotationModel>(this.anotationModels);
+    }
+
+    public void addAnotation(AnotationModel anot) {
+        if (anot != null) {
+            this.anotationModels.add(anot);
+            this.fireModelChanged();
+        }
+    }
+
+    public void removeAnotation(AnotationModel anot) {
+        this.anotationModels.remove(anot);
+        this.fireModelChanged();
+    }
+
     /**
      * Adds new attribute to this class model. If this attribute is already here
      * it will not be apended
      * @param attr new attribute to add
      */
     public void addAttribute(AttributeModel attr) {
-        this.attributeModels.add(attr);
-        this.fireModelChanged();
+        if (attr != null) {
+            this.attributeModels.add(attr);
+            this.fireModelChanged();
+        }
     }
 
     /**
@@ -138,8 +165,10 @@ public class ClassModel extends TypeModel implements IClass {
      * @param method a method to be added to this model
      */
     public void addMethod(MethodModel method) {
-        this.methodModels.add(method);
-        this.fireModelChanged();
+        if (method != null) {
+            this.methodModels.add(method);
+            this.fireModelChanged();
+        }
     }
 
     @Override
@@ -177,4 +206,6 @@ public class ClassModel extends TypeModel implements IClass {
 
         return res;
     }
+
+    
 }

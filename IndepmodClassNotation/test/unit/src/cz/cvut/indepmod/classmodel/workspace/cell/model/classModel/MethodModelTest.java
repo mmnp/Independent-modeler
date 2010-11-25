@@ -5,12 +5,10 @@
 
 package cz.cvut.indepmod.classmodel.workspace.cell.model.classModel;
 
-import java.util.HashSet;
+import cz.cvut.indepmod.classmodel.Common;
 import java.util.Set;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -20,20 +18,11 @@ import static org.junit.Assert.*;
  */
 public class MethodModelTest {
 
-    public static final String TYPE_NAME = "type";
-    public static final String INT_NAME = "int";
-    public static final String SINGLETON_NAME = "singleton";
-    public static final String COUNT_NAME = "count";
-    public static final String METHOD_NAME = "getInstance";
-
     private MethodModel model;
 
     @Before
     public void setUp() {
-        Set<AttributeModel> attributes = new HashSet<AttributeModel>();
-        attributes.add(new AttributeModel(new TypeModel(TYPE_NAME), SINGLETON_NAME));
-        attributes.add(new AttributeModel(new TypeModel(INT_NAME), COUNT_NAME));
-        this.model = new MethodModel(new TypeModel(TYPE_NAME), METHOD_NAME, attributes);
+        this.model = new MethodModel(new TypeModel(Common.TYPE_NAME), Common.METHOD_NAME, Common.getAttributes());
     }
 
     @After
@@ -47,7 +36,7 @@ public class MethodModelTest {
     public void testGetType() {
         assertNotNull(model.getType());
         assertNotNull(model.getType().getTypeName());
-        assertEquals(TYPE_NAME, model.getType().getTypeName());
+        assertEquals(Common.TYPE_NAME, model.getType().getTypeName());
     }
 
     /**
@@ -56,7 +45,7 @@ public class MethodModelTest {
     @Test
     public void testGetName() {
         assertNotNull(model.getName());
-        assertEquals(METHOD_NAME, model.getName());
+        assertEquals(Common.METHOD_NAME, model.getName());
     }
 
     /**
@@ -66,7 +55,7 @@ public class MethodModelTest {
     public void testGetAttributeModels() {
         assertNotNull(model.getAttributeModels());
         Set<AttributeModel> atr = model.getAttributeModels();
-        assertEquals(2, atr.size());
+        assertEquals(3, atr.size());
         for (AttributeModel a : atr) {
             assertNotNull(a);
         }
