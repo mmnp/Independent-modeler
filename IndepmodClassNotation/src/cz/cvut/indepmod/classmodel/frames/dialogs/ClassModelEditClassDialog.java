@@ -1,12 +1,15 @@
 package cz.cvut.indepmod.classmodel.frames.dialogs;
 
 import cz.cvut.indepmod.classmodel.actions.ClassModelCancelEditClassDialog;
+import cz.cvut.indepmod.classmodel.actions.ClassModelEditClassDialogAddAnotation;
 import cz.cvut.indepmod.classmodel.actions.ClassModelEditClassDialogAddAttribute;
 import cz.cvut.indepmod.classmodel.actions.ClassModelEditClassDialogAddMethod;
+import cz.cvut.indepmod.classmodel.actions.ClassModelEditClassDialogRemoveAnotation;
 import cz.cvut.indepmod.classmodel.actions.ClassModelEditClassDialogRemoveAttribute;
 import cz.cvut.indepmod.classmodel.actions.ClassModelEditClassDialogRemoveMethod;
 import cz.cvut.indepmod.classmodel.actions.ClassModelSaveEditClassDialog;
 import cz.cvut.indepmod.classmodel.workspace.ClassModelGraph;
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.AnotationModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.AttributeModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.ClassModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.MethodModel;
@@ -38,6 +41,7 @@ public class ClassModelEditClassDialog extends ClassModelEditClassDialogView imp
 
     private DefaultListModel attributeListModel;
     private DefaultListModel methodListModel;
+    private DefaultListModel anotationListModel;
 
     public ClassModelEditClassDialog(Frame owner, ClassModelGraph graph, DefaultGraphCell cell, ClassModel cellModel) {
         super(owner);
@@ -47,11 +51,20 @@ public class ClassModelEditClassDialog extends ClassModelEditClassDialogView imp
 
         this.attributeListModel = new DefaultListModel();
         this.methodListModel = new DefaultListModel();
+        this.anotationListModel = new DefaultListModel();
 
         this.initValues();
         this.initAction();
         this.initHandlers();
         this.setSizes();
+    }
+
+    /**
+     * Returns Selected Anotation in the attribute list
+     * @return selected anotation
+     */
+    public AnotationModel getSelectedAnotation() {
+        return (AnotationModel) this.anotationList.getSelectedValue();
     }
 
     /**
@@ -113,8 +126,23 @@ public class ClassModelEditClassDialog extends ClassModelEditClassDialogView imp
 
         this.attributeList.setModel(this.attributeListModel); //TODO - List in  JAVA SE 7 is a generic type
         this.methodList.setModel(this.methodListModel);
+        this.anotationList.setModel(this.anotationListModel);
+
+        this.loadAnotationListValues();
         this.loadAttributeListValues();
         this.loadMethodsListValues();
+    }
+
+    /**
+     * Loads list of anotations into the anotation list which is situated in the
+     * dialog
+     */
+    private void loadAnotationListValues() {
+        Set<AnotationModel> anots = this.classModel.getAnotations();
+        this.anotationListModel.clear();
+        for (AnotationModel anot : anots) {
+            this.anotationListModel.addElement(anot);
+        }
     }
 
     /**
@@ -146,8 +174,10 @@ public class ClassModelEditClassDialog extends ClassModelEditClassDialogView imp
      */
     private void initAction() {
         this.removeAttributeButton.addActionListener(new ClassModelEditClassDialogRemoveAttribute(this.classModel, this));
+        this.addAnotationButton.addActionListener(new ClassModelEditClassDialogAddAnotation(classModel, this));
         this.addAttributeButton.addActionListener(new ClassModelEditClassDialogAddAttribute(this.classModel, this));
         this.addMethodButton.addActionListener(new ClassModelEditClassDialogAddMethod(this.classModel, this));
+        this.removeAnotationButton.addActionListener(new ClassModelEditClassDialogRemoveAnotation(this.classModel, this));
         this.removeMethodButton.addActionListener(new ClassModelEditClassDialogRemoveMethod(this.classModel, this));
         this.saveButton.addActionListener(new ClassModelSaveEditClassDialog(this.classModel, this));
         this.cancelButton.addActionListener(new ClassModelCancelEditClassDialog(this));
@@ -166,5 +196,6 @@ public class ClassModelEditClassDialog extends ClassModelEditClassDialogView imp
     public void modelChanged() {
         this.loadAttributeListValues();
         this.loadMethodsListValues();
+        this.loadAnotationListValues();
     }
 }
