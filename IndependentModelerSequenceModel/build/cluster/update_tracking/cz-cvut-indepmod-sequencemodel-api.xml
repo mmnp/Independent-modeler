@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module codename="cz.cvut.indepmod.sequencemodel.api">
-    <module_version install_time="1290357791247" last="true" origin="installer" specification_version="1.0">
-        <file crc="1012919578" name="config/Modules/cz-cvut-indepmod-sequencemodel-api.xml"/>
-        <file crc="3400826337" name="modules/cz-cvut-indepmod-sequencemodel-api.jar"/>
-    </module_version>
-</module>

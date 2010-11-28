@@ -6,6 +6,7 @@
 package cz.cvut.indepmod.sequencemodel.editor;
 
 import cz.cvut.indepmod.sequencemodel.api.ToolChooserModel;
+import cz.cvut.indepmod.sequencemodel.api.ToolChooserModelListener;
 import cz.cvut.indepmod.sequencemodel.editor.cell.SequenceModelCellFactory;
 import java.awt.Point;
 import java.util.logging.Logger;
@@ -24,6 +25,8 @@ public class SequenceModelGraph extends JGraph{
 
     public SequenceModelGraph(ToolChooserModel selectedTool){
         this.selectedTool = selectedTool;
+
+        this.initEventHandling();
     }
 
     public void insertCell(Point p) {
@@ -32,7 +35,26 @@ public class SequenceModelGraph extends JGraph{
         DefaultGraphCell cells = SequenceModelCellFactory.createCells(p, tool);
 
         this.getGraphLayoutCache().insert(cells);
-        this.selectedTool.setSelectedTool(ToolChooserModel.Tool.TOOL_INTERACTION_NAME);
+        this.selectedTool.setSelectedTool(ToolChooserModel.Tool.TOOL_INTERACTION);
+    }
+
+        private void initEventHandling() {
+        this.selectedTool.addListener(new ToolChooserModelListener() {
+
+            @Override
+            public void selectedToolChanged(ToolChooserModel.Tool newTool) {
+                boolean showPorts = false;
+                ToolChooserModel.Tool tool = newTool;
+
+                switch (tool) {
+                    case TOOL_MESSAGE:
+                        showPorts = true;
+                }
+
+                setPortsVisible(showPorts);
+                setJumpToDefaultPort(showPorts);
+            }
+        });
     }
 
 }

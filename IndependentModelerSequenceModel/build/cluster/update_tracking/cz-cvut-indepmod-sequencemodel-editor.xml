@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module codename="cz.cvut.indepmod.sequencemodel.editor">
-    <module_version install_time="1290357793553" last="true" origin="installer" specification_version="1.0">
-        <file crc="3585057903" name="config/Modules/cz-cvut-indepmod-sequencemodel-editor.xml"/>
-        <file crc="2012454784" name="modules/cz-cvut-indepmod-sequencemodel-editor.jar"/>
-    </module_version>
-</module>

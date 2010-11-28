@@ -6,13 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.logging.Logger;
 import org.openide.windows.TopComponent;
-import org.openide.windows.WindowManager;
 
 /**
  * This class represents the view of the tool chooser. Tool Chooser will be used as a Dockable Frame. User will choose
  * an action that he/she wants (e.g. add Class) by the ToolChooser
  */
-
 public class ToolChooserView extends TopComponent {
 
     private static final Logger LOG = Logger.getLogger(ToolChooserView.class.getName());

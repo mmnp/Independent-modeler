@@ -16,9 +16,9 @@ public class ToolChooserModel {
     public static final String TOOL_MESSAGE_NAME = "message";
 
     public static enum Tool {
-        TOOL_LIFELINE_NAME,
-        TOOL_MESSAGE_NAME,
-        TOOL_INTERACTION_NAME
+        TOOL_LIFELINE,
+        TOOL_MESSAGE,
+        TOOL_INTERACTION
     }
 
     public static final String SELECTED_TOOL_PROPERTY = "selectedTool";
@@ -29,7 +29,7 @@ public class ToolChooserModel {
 
 
     public ToolChooserModel() {
-        this.selectedTool = Tool.TOOL_INTERACTION_NAME;
+        this.selectedTool = Tool.TOOL_INTERACTION;
         this.lsnrs = new LinkedList<ToolChooserModelListener>();
     }
 

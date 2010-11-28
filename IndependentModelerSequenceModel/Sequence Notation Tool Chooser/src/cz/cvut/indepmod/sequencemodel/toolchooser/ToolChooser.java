@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
+import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.util.Lookup;
 import org.openide.util.LookupEvent;
 import org.openide.util.LookupListener;
@@ -36,6 +37,7 @@ public class ToolChooser extends ToolChooserView {
     private ToolChooserModelLookupListener toolChooserLookupLsnr;
     private ToolChooserModelChangeListener toolChooserChangeLsnr;
 
+
     private ToolChooser() {
         this.model = null;
         this.toolChooserLookupLsnr = new ToolChooserModelLookupListener();
@@ -46,6 +48,7 @@ public class ToolChooser extends ToolChooserView {
         this.initActions();
     }
 
+    /*
     @Override
     public List<Mode> availableModes(List<Mode> modes) {
         for (Mode mode : modes) {
@@ -55,7 +58,16 @@ public class ToolChooser extends ToolChooserView {
         }
         return modes;
     }
+    */
 
+    @Override
+    public void open() {
+        Mode mode = WindowManager.getDefault().findMode("rightSlidingSide");
+        if (mode != null) {
+        mode.dockInto(this);
+        }
+        super.open();
+        }
 
 
     public ToolChooserModel getModel() {
@@ -72,7 +84,7 @@ public class ToolChooser extends ToolChooserView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 LOG.fine("controll tool choosed");
-                model.setSelectedTool(ToolChooserModel.Tool.TOOL_INTERACTION_NAME);
+                model.setSelectedTool(ToolChooserModel.Tool.TOOL_INTERACTION);
             }
         });
 
@@ -81,7 +93,7 @@ public class ToolChooser extends ToolChooserView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 LOG.fine("addClass tool choosed");
-                model.setSelectedTool(ToolChooserModel.Tool.TOOL_LIFELINE_NAME);
+                model.setSelectedTool(ToolChooserModel.Tool.TOOL_LIFELINE);
             }
         });
 
@@ -90,7 +102,7 @@ public class ToolChooser extends ToolChooserView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 LOG.fine("addRelation choosed");
-                model.setSelectedTool(ToolChooserModel.Tool.TOOL_MESSAGE_NAME);
+                model.setSelectedTool(ToolChooserModel.Tool.TOOL_MESSAGE);
             }
         });
     }
@@ -173,13 +185,13 @@ public class ToolChooser extends ToolChooserView {
         public void selectedToolChanged(ToolChooserModel.Tool newTool) {
             ToolChooserModel.Tool tool = newTool;
             switch (tool) {
-                case TOOL_INTERACTION_NAME:
+                case TOOL_INTERACTION:
                     interactionButton.doClick();
                     break;
-                case TOOL_LIFELINE_NAME:
+                case TOOL_LIFELINE:
                     lifelineButton.doClick();
                     break;
-                case TOOL_MESSAGE_NAME:
+                case TOOL_MESSAGE:
                     messageButton.doClick();
                     break;
                 default:

@@ -31,7 +31,7 @@ public class SequenceModelCellFactory {
         DefaultGraphCell parentCell;
 
         switch (selectedTool) {
-            case TOOL_LIFELINE_NAME:
+            case TOOL_LIFELINE:
                 cells = new DefaultGraphCell[3];
                 cells[0] = new DefaultGraphCell(new String(":Lifeline" + ++counter));
                 cells[1] = new DefaultGraphCell(new String(""));

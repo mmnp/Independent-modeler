@@ -25,6 +25,7 @@ import org.jgraph.graph.GraphModel;
 import org.openide.util.NbBundle;
 import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
+import org.openide.windows.Mode;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 
@@ -77,6 +78,15 @@ public class SequenceModelWorkspace extends TopComponent{
     public int getPersistenceType() {
         return TopComponent.PERSISTENCE_ALWAYS;
     }
+
+        @Override
+    public void open() {
+        Mode mode = WindowManager.getDefault().findMode("editor");
+        if (mode != null) {
+        mode.dockInto(this);
+        }
+        super.open();
+        }
 
     private void initLayout() {
         this.model = new DefaultGraphModel();
