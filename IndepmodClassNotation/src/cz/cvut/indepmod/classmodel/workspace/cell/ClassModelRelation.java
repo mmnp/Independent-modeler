@@ -1,5 +1,6 @@
 package cz.cvut.indepmod.classmodel.workspace.cell;
 
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.AbstractRelationModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.RelationModel;
 import org.jgraph.graph.AttributeMap;
 import org.jgraph.graph.DefaultEdge;
@@ -10,7 +11,7 @@ import org.jgraph.graph.DefaultEdge;
  * @author Lucky
  *
  * This class extends the DefaultEdge. When an user object is of
- * RelationModel type, the pointer of thah object is sat to this instance.
+ * AbstractRelationModel type, the pointer of thah object is sat to this instance.
  */
 public class ClassModelRelation extends DefaultEdge {
 
@@ -35,14 +36,14 @@ public class ClassModelRelation extends DefaultEdge {
     }
 
     /**
-     * If the object in the parameter is RelationModel instance, set its pointer
+     * If the object in the parameter is AbstractRelationModel instance, set its pointer
      * to this cell. RelationModel instance need to know its cell because it
      * gathers the data (such as start class, end class, ...) from this object
      * @param o Object, which could be the RelationModel instance
      */
     private void initUserObjectPointer(Object o) {
-        if (o instanceof RelationModel) {
-            RelationModel m = (RelationModel) o;
+        if (o instanceof AbstractRelationModel) {
+            AbstractRelationModel m = (AbstractRelationModel) o;
             m.setCell(this);
         }
     }

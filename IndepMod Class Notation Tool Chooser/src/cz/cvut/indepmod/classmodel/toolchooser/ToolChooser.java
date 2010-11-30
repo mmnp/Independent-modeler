@@ -93,6 +93,15 @@ public class ToolChooser extends ToolChooserView {
                 model.setSelectedTool(ToolChooserModel.Tool.TOOL_ADD_RELATION);
             }
         });
+
+        this.addGeneralizationButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LOG.fine("add inheritance choosed");
+                model.setSelectedTool(ToolChooserModel.Tool.TOOL_ADD_GENERALIZATION);
+            }
+        });
     }
 
     @Override

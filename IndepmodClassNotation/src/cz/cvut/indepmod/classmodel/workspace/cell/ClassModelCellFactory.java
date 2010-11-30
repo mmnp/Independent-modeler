@@ -4,6 +4,7 @@ import cz.cvut.indepmod.classmodel.api.ToolChooserModel;
 import cz.cvut.indepmod.classmodel.api.model.Cardinality;
 import cz.cvut.indepmod.classmodel.api.model.RelationType;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.ClassModel;
+import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.GeneralizationModel;
 import cz.cvut.indepmod.classmodel.workspace.cell.model.classModel.RelationModel;
 import org.jgraph.graph.DefaultGraphCell;
 import org.jgraph.graph.DefaultPort;
@@ -12,7 +13,6 @@ import org.jgraph.graph.GraphConstants;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.logging.Logger;
-import org.jgraph.graph.AttributeMap;
 import org.jgraph.graph.DefaultEdge;
 
 /**
@@ -66,14 +66,20 @@ public class ClassModelCellFactory {
                 GraphConstants.setExtraLabelPositions(edge.getAttributes(), labPos);
                 GraphConstants.setExtraLabels(edge.getAttributes(), labels);
                 break;
+            case TOOL_ADD_GENERALIZATION:
+                edge = new ClassModelRelation();
+                edge.setUserObject(new GeneralizationModel());
+                GraphConstants.setLineEnd(edge.getAttributes(), GraphConstants.ARROW_TECHNICAL);
+                GraphConstants.setEndFill(edge.getAttributes(), false);
+                break;
             default:
                 LOG.severe("Unknown selected tool");
         }
 
-        GraphConstants.setEndFill(edge.getAttributes(), true);
+        //GraphConstants.setEndFill(edge.getAttributes(), true);
         GraphConstants.setLineStyle(edge.getAttributes(), GraphConstants.STYLE_ORTHOGONAL);
         GraphConstants.setLabelAlongEdge(edge.getAttributes(), false);
-        GraphConstants.setEditable(edge.getAttributes(), true);
+        GraphConstants.setEditable(edge.getAttributes(), false);
         GraphConstants.setMoveable(edge.getAttributes(), true);
         GraphConstants.setDisconnectable(edge.getAttributes(), false);
 

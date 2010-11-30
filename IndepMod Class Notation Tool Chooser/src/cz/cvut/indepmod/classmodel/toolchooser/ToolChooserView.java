@@ -22,6 +22,7 @@ public class ToolChooserView extends TopComponent {
     protected JToggleButton controllButton = new JToggleButton(ToolChooserModel.TOOL_CONTROL_NAME);
     protected JToggleButton addClassButton = new JToggleButton(ToolChooserModel.TOOL_ADD_CLASS_NAME);
     protected JToggleButton addRelationButton = new JToggleButton(ToolChooserModel.TOOL_ADD_RELATION);
+    protected JToggleButton addGeneralizationButton = new JToggleButton(ToolChooserModel.TOOL_ADD_GENERALIZATION);
 
     public ToolChooserView() {
         this.setLayout(new GridLayout(20, 1));
@@ -33,12 +34,14 @@ public class ToolChooserView extends TopComponent {
         this.controllButton.setEnabled(false);
         this.addClassButton.setEnabled(false);
         this.addRelationButton.setEnabled(false);
+        this.addGeneralizationButton.setEnabled(false);
     }
 
     public void enableToolChooser() {
         this.controllButton.setEnabled(true);
         this.addClassButton.setEnabled(true);
         this.addRelationButton.setEnabled(true);
+        this.addGeneralizationButton.setEnabled(true);
     }
 
 
@@ -46,9 +49,11 @@ public class ToolChooserView extends TopComponent {
         this.add(this.controllButton);
         this.add(this.addClassButton);
         this.add(this.addRelationButton);
+        this.add(this.addGeneralizationButton);
 
         this.buttonGroup.add(this.controllButton);
         this.buttonGroup.add(this.addClassButton);
         this.buttonGroup.add(this.addRelationButton);
+        this.buttonGroup.add(this.addGeneralizationButton);
     }
 }

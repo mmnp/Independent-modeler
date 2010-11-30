@@ -17,11 +17,13 @@ public class ToolChooserModel {
     public static final String TOOL_CONTROL_NAME = "control";
     public static final String TOOL_ADD_CLASS_NAME = "class";
     public static final String TOOL_ADD_RELATION = "relation";
+    public static final String TOOL_ADD_GENERALIZATION = "inheritance";
 
     public static enum Tool {
         TOOL_CONTROLL,
         TOOL_ADD_CLASS,
-        TOOL_ADD_RELATION
+        TOOL_ADD_RELATION,
+        TOOL_ADD_GENERALIZATION
     }
 
     public static final String SELECTED_TOOL_PROPERTY = "selectedTool";

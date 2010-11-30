@@ -39,7 +39,11 @@ public class ClassModelEditAction extends ClassModelAbstractAction {
         } else if (o instanceof ClassModelClassCell) {
             this.classEditAction((ClassModelClassCell) o);
         } else if (o instanceof ClassModelRelation) {
-            this.relationEditAction((ClassModelRelation) o);
+            ClassModelRelation edge = (ClassModelRelation) o;
+            Object userObj = edge.getUserObject();
+            if (userObj instanceof RelationModel) {
+                this.relationEditAction((ClassModelRelation) o);
+            }
         } else {
             LOG.severe("Edit Action was performed on different vertex than class");
         }
@@ -48,12 +52,12 @@ public class ClassModelEditAction extends ClassModelAbstractAction {
     private void classEditAction(ClassModelClassCell cell) {
         LOG.info("edit of Class");
         try {
-        ClassModel model = (ClassModel) cell.getUserObject();
-        ClassModelEditClassDialog dialog = new ClassModelEditClassDialog(
-                WindowManager.getDefault().getMainWindow(),
-                graph,
-                cell,
-                model);
+            ClassModel model = (ClassModel) cell.getUserObject();
+            ClassModelEditClassDialog dialog = new ClassModelEditClassDialog(
+                    WindowManager.getDefault().getMainWindow(),
+                    graph,
+                    cell,
+                    model);
         } catch (ClassCastException ex) {
             throw new ClassCastException("User Object of cell is not ClassModel instance!");
         }
@@ -62,12 +66,12 @@ public class ClassModelEditAction extends ClassModelAbstractAction {
     private void relationEditAction(ClassModelRelation relation) {
         LOG.info("edit of Relation");
         try {
-        RelationModel model = (RelationModel) relation.getUserObject();
-        ClassModelEditRelationDialog dialog = new ClassModelEditRelationDialog(
-                WindowManager.getDefault().getMainWindow(),
-                graph,
-                relation,
-                model);
+            RelationModel model = (RelationModel) relation.getUserObject();
+            ClassModelEditRelationDialog dialog = new ClassModelEditRelationDialog(
+                    WindowManager.getDefault().getMainWindow(),
+                    graph,
+                    relation,
+                    model);
         } catch (ClassCastException ex) {
             throw new ClassCastException("User Object of cell is not ClassModel instance!");
         }
