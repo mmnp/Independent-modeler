@@ -1,20 +1,18 @@
 package cz.cvut.indepmod.classmodel.workspace.cell.model.classModel;
 
-import cz.cvut.indepmod.classmodel.api.model.Cardinality;
 import cz.cvut.indepmod.classmodel.api.model.IClass;
 import cz.cvut.indepmod.classmodel.api.model.IRelation;
 import cz.cvut.indepmod.classmodel.api.model.RelationType;
 import org.jgraph.graph.DefaultEdge;
 import org.jgraph.graph.DefaultGraphCell;
 import org.jgraph.graph.DefaultPort;
-import org.jgraph.graph.GraphConstants;
 
 /**
  * Date: 30.11.2010
  * Time: 15:43:51
  * @author Lucky
  */
-public abstract class AbstractRelationModel implements IRelation {
+public abstract class AbstractRelationModel extends AbstractModel implements IRelation {
 
     private RelationType type;
     protected DefaultEdge cell;

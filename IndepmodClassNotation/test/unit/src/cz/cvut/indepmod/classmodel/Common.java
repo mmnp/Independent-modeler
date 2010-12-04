@@ -27,6 +27,9 @@ public class Common {
     public static final String ANOT1 = "an1";
     public static final String ANOT2 = "barfoo";
     public static final String ANOT3 = "anotation3";
+    public static final String VAL1 = "fooValue";
+    public static final String VAL2 = "barBatFoo";
+    public static final String VAL3 = "tst";
     public static final String INT_NAME = "int";
     public static final String SINGLETON_NAME = "singleton";
     public static final String COUNT_NAME = "count";

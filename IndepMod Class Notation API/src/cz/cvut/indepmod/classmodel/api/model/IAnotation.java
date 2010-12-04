@@ -1,5 +1,7 @@
 package cz.cvut.indepmod.classmodel.api.model;
 
+import java.util.Collection;
+
 /**
  * Date: 25.11.2010
  * Time: 16:02:04
@@ -18,5 +20,11 @@ public interface IAnotation {
      * @return The name of the anotation
      */
     public String getName();
+
+    /**
+     * Returns a collection of IAnotationValues
+     * @return A collection of IAnotationValues
+     */
+    public Collection<IAnotationValue> getAttributes();
 
 }
