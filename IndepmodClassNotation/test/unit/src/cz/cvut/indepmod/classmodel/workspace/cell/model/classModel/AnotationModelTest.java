@@ -70,7 +70,9 @@ public class AnotationModelTest {
         assertTrue(isAtr2);
 
         this.model.addAttribute(atr1X);
+        assertEquals(2, this.model.getAttributes().size());
 
+        this.model.addAttribute(null);
         assertEquals(2, this.model.getAttributes().size());
     }
 }

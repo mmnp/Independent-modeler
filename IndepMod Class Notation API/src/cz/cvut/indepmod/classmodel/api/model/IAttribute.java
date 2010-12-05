@@ -5,6 +5,8 @@
 
 package cz.cvut.indepmod.classmodel.api.model;
 
+import java.util.Collection;
+
 /**
  *
  * @author Lucky
@@ -24,5 +26,11 @@ public interface IAttribute {
      * @return Type instantion
      */
     public IType getType();
+
+    /**
+     * Returns a collection of annotations that are related to this attribute
+     * @return A collection of annotations
+     */
+    public Collection<IAnotation> getAnotations();
 
 }

@@ -173,6 +173,7 @@ public class ClassModelEditClassDialog extends ClassModelEditClassDialogView imp
      * Initializes actions (for saving, canceling, ...)
      */
     private void initAction() {
+        //this.editAttributeButton.addActionListener(new ClassModelEditClassDialogEditAttribute(this));
         this.removeAttributeButton.addActionListener(new ClassModelEditClassDialogRemoveAttribute(this.classModel, this));
         this.addAnotationButton.addActionListener(new ClassModelEditClassDialogAddAnotation(classModel, this));
         this.addAttributeButton.addActionListener(new ClassModelEditClassDialogAddAttribute(this.classModel, this));

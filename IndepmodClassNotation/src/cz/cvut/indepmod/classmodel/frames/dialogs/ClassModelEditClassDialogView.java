@@ -28,6 +28,7 @@ public class ClassModelEditClassDialogView extends ClassModelAbstractDialog {
     public static final String REMOVE_ATTRIBUTE_BUTTON = "Del Atribute";
     public static final String REMOVE_METHOD_BUTTON = "Del Method";
     public static final String REMOVE_ANOT_BUTTON = "Del Anotation";
+    //public static final String EDIT_ATTRIBUTE_BUTTON = "Edit Attribute";
 
     protected JLabel classNameLabel = new JLabel(NAME_LABEL);
     protected JLabel anotationsLabel = new JLabel(ANOT_LABEL);
@@ -38,6 +39,7 @@ public class ClassModelEditClassDialogView extends ClassModelAbstractDialog {
     protected JButton removeAnotationButton = new JButton(REMOVE_ANOT_BUTTON);
     protected JButton addAttributeButton = new JButton(ADD_ATTRIBUTE_BUTTON);
     protected JButton removeAttributeButton = new JButton(REMOVE_ATTRIBUTE_BUTTON);
+    //protected JButton editAttributeButton = new JButton(EDIT_ATTRIBUTE_BUTTON);
     protected JButton addMethodButton = new JButton(ADD_METHOD_BUTTON);
     protected JButton removeMethodButton = new JButton(REMOVE_METHOD_BUTTON);
     protected JButton saveButton = new JButton(SAVE_BUTTON);
@@ -54,7 +56,7 @@ public class ClassModelEditClassDialogView extends ClassModelAbstractDialog {
     }
 
     private void initLayout() {
-        this.setLayout(new GridLayout(8, 2));
+        this.setLayout(new GridLayout(9, 2));
 
         this.add(this.classNameLabel);
         this.add(this.classNameField);
@@ -67,6 +69,8 @@ public class ClassModelEditClassDialogView extends ClassModelAbstractDialog {
 
         this.add(this.addAttributeButton);
         this.add(this.removeAttributeButton);
+        //this.add(this.editAttributeButton);
+        //this.add(new JLabel());
 
         this.add(this.attributesLabel);
         this.add(this.attributeList);
