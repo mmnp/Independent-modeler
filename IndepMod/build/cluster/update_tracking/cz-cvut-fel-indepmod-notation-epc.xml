@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module codename="cz.cvut.fel.indepmod.notation.epc">
+    <module_version install_time="1292164240931" last="true" origin="installer" specification_version="1.0">
+        <file crc="2591147590" name="config/Modules/cz-cvut-fel-indepmod-notation-epc.xml"/>
+        <file crc="3742463368" name="modules/cz-cvut-fel-indepmod-notation-epc.jar"/>
+    </module_version>
+</module>

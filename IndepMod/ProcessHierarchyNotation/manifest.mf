@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+OpenIDE-Module: cz.cvut.fel.indepmod.notation.processhierarchy
+OpenIDE-Module-Layer: cz/cvut/fel/indepmod/notation/processhierarchy/layer.xml
+OpenIDE-Module-Localizing-Bundle: cz/cvut/fel/indepmod/notation/processhierarchy/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+

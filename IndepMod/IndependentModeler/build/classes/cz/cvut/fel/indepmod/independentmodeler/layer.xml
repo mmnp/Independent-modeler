@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Actions">
+        <folder name="Edit">
+            <file name="cz-cvut-fel-indepmod-independentmodeler-EditorOpenAction.instance">
+                <attr name="delegate" newvalue="cz.cvut.fel.indepmod.independentmodeler.EditorOpenAction"/>
+                <attr name="displayName" bundlevalue="cz.cvut.fel.indepmod.independentmodeler.Bundle#CTL_Editor"/>
+                <attr name="instanceCreate" methodvalue="org.openide.awt.Actions.alwaysEnabled"/>
+                <attr name="noIconInMenu" boolvalue="false"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Menu">
+        <folder name="File">
+            <file name="cz-cvut-fel-indepmod-independentmodeler-Editor.shadow">
+                <attr name="originalFile" stringvalue="Actions/Edit/cz-cvut-fel-indepmod-independentmodeler-EditorOpenAction.instance"/>
+                <attr name="position" intvalue="1300"/>
+            </file>
+        </folder>
+    </folder>
+</filesystem>

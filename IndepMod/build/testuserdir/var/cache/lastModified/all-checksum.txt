@@ -1,0 +1,6 @@
+C:\Program Files\NetBeans 6.9.1\platform=1286911461336
+G:\_PROJEKTY\IndependentModeler\indepmod\IndepMod\build\cluster=1292164241819
+C:\Program Files\NetBeans 6.9.1\ide=1286911461339
+C:\Program Files\NetBeans 6.9.1\platform=1286911461336
+G:\_PROJEKTY\IndependentModeler\indepmod\IndepMod\build\testuserdir=1292164241819
+crc=7
